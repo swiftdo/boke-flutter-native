@@ -28,6 +28,7 @@ class MainPage extends StatelessWidget {
     return SvgPicture.asset(
       image,
       width: 24,
+      color: Colors.grey,
     );
   }
 
@@ -36,6 +37,7 @@ class MainPage extends StatelessWidget {
       padding: EdgeInsets.all(8),
       child: SvgPicture.asset(
         image,
+        color: Color(0xffEF543C),
       ),
     );
   }
@@ -45,7 +47,7 @@ class MainPage extends StatelessWidget {
       padding: EdgeInsets.only(top: 3),
       child: Text(
         title,
-        style: TextStyle(fontSize: 12),
+        style: TextStyle(fontSize: 12, color: Colors.grey),
       ),
     );
   }
