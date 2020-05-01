@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:oldbirds/locator.dart';
 import 'routing/routing.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  setupLocator();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
