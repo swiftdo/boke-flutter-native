@@ -53,11 +53,9 @@ class SkeletonList extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     bool isDark = theme.brightness == Brightness.dark;
-
 //    var highlightColor = isDark
 //        ? Colors.grey[500]
 //        : Color.alphaBlend(theme.accentColor.withAlpha(20), Colors.grey[100]);
-
     return SingleChildScrollView(
       physics: NeverScrollableScrollPhysics(),
       child: Shimmer.fromColors(

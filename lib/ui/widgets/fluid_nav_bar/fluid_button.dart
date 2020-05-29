@@ -15,7 +15,7 @@ class FluidNavBarButton extends StatefulWidget {
   final bool _selected;
   final FluidNavBarButtonPressedCallback _onPressed;
 
-  FluidNavBarButton(Widget icon, Widget activeIcon,Widget title, bool selected,
+  FluidNavBarButton(Widget icon, Widget activeIcon, Widget title, bool selected,
       FluidNavBarButtonPressedCallback onPressed)
       : _icon = icon,
         _activeIcon = activeIcon,

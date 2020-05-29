@@ -1,7 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:oldbirds/locator.dart';
+import 'package:oldbirds/macro.dart';
+import 'package:oldbirds/services/services.dart';
+import 'global_user_state.dart';
 
 class MineLoginState extends ViewStateModel {
+  final GlobalUserState globalUserState;
+
+  MineLoginState({@required this.globalUserState}) {
+    _agreeProtocol =
+        SpUtil.getBool(Macro.saveKeyRemindAgreeProtocol, defValue: false);
+  }
+
+  final repository = locator<NativeRepository>();
+
   String _email;
   String get email => _email;
 
@@ -11,8 +25,10 @@ class MineLoginState extends ViewStateModel {
   bool _enableLogin = false;
   bool get enableLogin => _enableLogin;
 
-  bool _agreeProtocol = false;
+  bool _agreeProtocol;
   bool get agreeProtocol => _agreeProtocol;
+
+  bool get sending => viewState == ViewState.busy;
 
   void setEmail(String email) {
     _email = email;
@@ -43,14 +59,29 @@ class MineLoginState extends ViewStateModel {
   }
 
   /// 登录
-  void login() {
+  Future<ModelLogin> login({BuildContext context}) async {
+    if (sending) {
+      return null;
+    }
     if (!RegexUtil.isEmail(email)) {
       showToast("请输入正确的邮箱");
-      return;
+      return null;
     }
     if (password.length < 6) {
       showToast("请输入 6 位以上密码");
-      return;
+      return null;
+    }
+    SpUtil.putBool(Macro.saveKeyRemindAgreeProtocol, true);
+    setBusy();
+    try {
+      final result = await repository.login(email: email, pwd: password);
+      globalUserState.login(user: result.user, token: result.token);
+      setIdle();
+      return result;
+    } catch (e, s) {
+      setError(e, s);
+      showErrorMessage(context, message: viewStateError.message);
+      return null;
     }
   }
 }

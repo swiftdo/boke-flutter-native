@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/routing/routing.dart';
-import 'package:provider/provider.dart';
-import '../../widgets/widgets.dart';
 import 'package:oldbirds/states/states.dart';
+import 'package:provider/provider.dart';
+
+import '../../widgets/widgets.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      model: MineLoginState(),
+      model: MineLoginState(globalUserState: Provider.of(context)),
       builder: (context, MineLoginState state, child) {
         return Scaffold(
           body: SingleChildScrollView(
@@ -22,30 +23,35 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 child,
-                GestureDetector(
-                  onTap: () {
-                    if (state.enableLogin) {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      state.login();
-                    }
-                  },
-                  child: Container(
-                      decoration: BoxDecoration(
+                Container(
+                  margin: EdgeInsets.only(left: 16, right: 16),
+                  child: ProgressButton(
+                    onPressed: () {
+                      if (state.enableLogin) {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        state.login(context: context).then((result) {
+                          if (result != null) {
+                            Navigator.of(context).pop();
+                          }
+                        });
+                      }
+                    },
+                    buttonState: state.sending
+                        ? ButtonState.inProgress
+                        : ButtonState.normal,
+                    backgroundColor: state.enableLogin
+                        ? Color(0xff333333)
+                        : Color(0xffCACACA),
+                    progressColor: Colors.white,
+                    child: Text(
+                      '登录',
+                      style: TextStyle(
                           color: state.enableLogin
-                              ? Color(0xff333333)
-                              : Color(0xffCACACA),
-                          borderRadius: BorderRadius.circular(5)),
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.only(top: 12, bottom: 12),
-                      margin: EdgeInsets.only(left: 16, right: 16),
-                      child: Text(
-                        '登录',
-                        style: TextStyle(
-                            color: state.enableLogin
-                                ? Colors.white
-                                : Color(0xff999999),
-                            fontSize: 16),
-                      )),
+                              ? Colors.white
+                              : Color(0xff999999),
+                          fontSize: 16),
+                    ),
+                  ),
                 ),
                 LoginProtocol(
                   isChecked: state.agreeProtocol,

@@ -7,3 +7,8 @@ export 'mine/register_page.dart';
 export 'mine/forget_pwd_page.dart';
 export 'mine/protocol_page.dart';
 export 'mine/profile_page.dart';
+export 'mine/setting_page.dart';
+export 'home/topic_detail_page.dart';
+export 'learn/booklets_page.dart';
+export 'learn/booklet_page.dart';
+export 'learn/booklet_read_page.dart';

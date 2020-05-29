@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loveli_core/loveli_core.dart';
 import 'route_names.dart';
 import '../ui/ui.dart';
 
@@ -28,6 +29,33 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ProfileRoute:
       return MaterialPageRoute(builder: (context) {
         return ProfilePage();
+      });
+    case SettingRoute:
+      return MaterialPageRoute(builder: (context) {
+        return SettingPage();
+      });
+    case TopicDetailRoute:
+      return MaterialPageRoute(builder: (context) {
+        Map args = ValueUtil.toMap(settings.arguments);
+        return TopicDetailPage(
+          topicId: ValueUtil.toStr(args['topicId']),
+        );
+      });
+    case BookletsRoute:
+      return MaterialPageRoute(builder: (context) {
+        return BookletsPage();
+      });
+
+    case BookletRoute:
+      return MaterialPageRoute(builder: (context) {
+        Map args = ValueUtil.toMap(settings.arguments);
+        return BookletPage(bookletId: ValueUtil.toStr(args['bookletId']));
+      });
+    case BookletReadRoute:
+      return MaterialPageRoute(builder: (context) {
+        Map args = ValueUtil.toMap(settings.arguments);
+        return BookletReadPage(
+            catalog: args['catalog'], catalogs: args['catalogs']);
       });
     default:
       return MaterialPageRoute(builder: (context) {

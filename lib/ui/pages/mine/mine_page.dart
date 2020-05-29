@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:oldbirds/states/global_user_state.dart';
+import 'package:provider/provider.dart';
 import 'package:oldbirds/routing/route_names.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -29,6 +32,9 @@ class _MinePageState extends State<MinePage> {
                     title: '设置',
                     icon: Icons.settings,
                     showLine: false,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(SettingRoute);
+                    },
                   )
                 ],
               ),
@@ -44,13 +50,15 @@ class MineListTitle extends StatelessWidget {
   final String title;
   final IconData icon;
   final bool showLine;
-  MineListTitle({this.title, this.icon, this.showLine = true});
+  final GestureTapCallback onTap;
+  MineListTitle({this.title, this.icon, this.onTap, this.showLine = true});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         ListTile(
+          onTap: onTap,
           leading: Icon(icon),
           title: Text(title),
           trailing: Icon(
@@ -76,42 +84,62 @@ class MineHeader extends StatelessWidget {
       color: Colors.white,
       padding: EdgeInsets.all(16),
       height: 100,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          Navigator.of(context).pushNamed(LoginRoute);
-        },
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ClipOval(
-              child: SvgPicture.asset(
-                'assets/images/mine_user_not_login.svg',
-                width: 80,
-                height: 80,
-              ),
-            ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text(
-                      '登录',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    Text(
-                      '登录以使用更多功能',
-                      style: TextStyle(fontSize: 12, color: Color(0xffADADAD)),
-                    )
-                  ],
+      child: Consumer<GlobalUserState>(
+        builder: (context, state, child) {
+          return GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              if (state.isLogin) {
+                Navigator.of(context).pushNamed(ProfileRoute);
+              } else {
+                Navigator.of(context).pushNamed(LoginRoute);
+              }
+            },
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                ClipOval(
+                  child: state.isLogin
+                      ? CachedNetworkImage(
+                          imageUrl: state.user.avatar,
+                          placeholder: (context, str) {
+                            return SvgPicture.asset(
+                              'assets/images/mine_user_not_login.svg',
+                              width: 80,
+                              height: 80,
+                            );
+                          },
+                        )
+                      : SvgPicture.asset(
+                          'assets/images/mine_user_not_login.svg',
+                          width: 80,
+                          height: 80,
+                        ),
                 ),
-              ),
-            )
-          ],
-        ),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Text(
+                          state.isLogin ? state.user.name : '登录',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          state.isLogin ? '查看和编辑个人资料' : '登录以使用更多功能',
+                          style:
+                              TextStyle(fontSize: 12, color: Color(0xffADADAD)),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }

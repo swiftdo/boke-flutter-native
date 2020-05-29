@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:loveli_core/loveli_core.dart';
 
 final Http http = Http();
@@ -20,6 +21,7 @@ class NativeApiInterceptor extends InterceptorsWrapper {
   @override
   Future onResponse(Response response) {
     ResponseData respData = ResponseData.fromJson(response.data);
+    debugPrint('数据返回 ${response.data}');
     if (respData.success) {
       response.data = respData.data;
       return http.resolve(response);

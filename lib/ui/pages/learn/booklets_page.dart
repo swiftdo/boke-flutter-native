@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
-import 'package:oldbirds/model/model.dart';
+import 'package:oldbirds/states/states.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:provider/provider.dart';
-import '../../../states/states.dart';
-import '../../widgets/widgets.dart';
+import 'package:oldbirds/ui/widgets/widgets.dart';
+import 'package:oldbirds/model/model.dart';
 
-class HomeNewsPage extends StatefulWidget {
-  final String subjectId;
-  HomeNewsPage({@required this.subjectId});
-
-  @override
-  _HomeNewsPageState createState() => _HomeNewsPageState();
-}
-
-class _HomeNewsPageState extends State<HomeNewsPage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
+class BookletsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('手册'),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios),
+        ),
+      ),
+      body: _buildBody(),
+    );
+  }
+
+  Widget _buildBody() {
     return ProviderWidget(
-      model: HomeNewsState(widget.subjectId),
+      model: BookletsState(),
       onModelReady: (model) {
         model.initData();
       },
-      builder: (context, HomeNewsState newsState, child) {
+      builder: (context, BookletsState newsState, child) {
         return SmartRefresher(
           controller: newsState.refreshController,
           header: WaterDropMaterialHeader(
@@ -47,7 +50,7 @@ class _HomeNewsPageState extends State<HomeNewsPage>
             newsState.showErrorMessage(context);
           },
           child: CustomScrollView(
-            slivers: <Widget>[HomeTopicList()],
+            slivers: <Widget>[BookletList()],
           ),
         );
       },
@@ -55,22 +58,22 @@ class _HomeNewsPageState extends State<HomeNewsPage>
   }
 }
 
-class HomeTopicList extends StatelessWidget {
+class BookletList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    HomeNewsState state = Provider.of(context);
+    BookletsState state = Provider.of(context);
     if (state.viewState == ViewState.busy) {
       return SliverToBoxAdapter(
         child: SkeletonList(
-          builder: (context, index) => TopicSkeletonItem(),
+          builder: (context, index) => BookletListSkeletonItem(),
         ),
       );
     }
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          Topic item = state.list[index];
-          return TopicListItem(
+          Booklet item = state.list[index];
+          return BookletListItem(
             item: item,
             index: index,
           );
