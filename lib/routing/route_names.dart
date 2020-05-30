@@ -9,3 +9,5 @@ const String TopicDetailRoute = "topic_detail";
 const String BookletsRoute = "booklets";
 const String BookletRoute = "booklet";
 const String BookletReadRoute = "booklet_read";
+const String ThemeRoute = "theme";
+const String SplashRoute = 'splash';

@@ -10,8 +10,13 @@ class GlobalUserState extends ViewStateModel {
   User get user => _user;
   Token get token => _token;
 
+  GlobalUserState() {
+    _initData();
+  }
+
   /// 初始化数据
-  void initData() {
+  void _initData() async {
+    await SpUtil.getInstance();
     _user = SpUtil.getObj(Macro.saveKeyUser, (json) {
       return json == null ? null : User.fromMap(json);
     });

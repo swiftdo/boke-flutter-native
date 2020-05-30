@@ -7,6 +7,8 @@ import '../ui/ui.dart';
 Route<dynamic> generateRoute(RouteSettings settings) {
   String routeName = settings.name;
   switch (routeName) {
+    case SplashRoute:
+      return NoAnimRouteBuilder(SplashPage());
     case MainRoute:
       return MaterialPageRoute(builder: (context) {
         return MainPage();
@@ -57,6 +59,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         return BookletReadPage(
             catalog: args['catalog'], catalogs: args['catalogs']);
       });
+    case ThemeRoute:
+      return MaterialPageRoute(builder: (context) {
+        return ThemePage();
+      });
     default:
       return MaterialPageRoute(builder: (context) {
         return Scaffold(
@@ -66,4 +72,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         );
       });
   }
+}
+
+class NoAnimRouteBuilder extends PageRouteBuilder {
+  final Widget page;
+  NoAnimRouteBuilder(this.page)
+      : super(
+            opaque: false,
+            pageBuilder: (context, animation, secondaryAnimation) => page,
+            transitionDuration: Duration(milliseconds: 0),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) => child);
 }

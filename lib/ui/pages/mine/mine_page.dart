@@ -29,6 +29,13 @@ class _MinePageState extends State<MinePage> {
                   MineListTitle(title: '我的消息', icon: Icons.notifications),
                   MineListTitle(title: '意见反馈', icon: Icons.feedback),
                   MineListTitle(
+                    title: '主题配置',
+                    icon: Icons.color_lens,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(ThemeRoute);
+                    },
+                  ),
+                  MineListTitle(
                     title: '设置',
                     icon: Icons.settings,
                     showLine: false,
