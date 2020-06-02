@@ -169,7 +169,7 @@ packages:
       name: get_it
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.1.0"
+    version: "4.0.2"
   highlight:
     dependency: transitive
     description:
@@ -211,7 +211,14 @@ packages:
       name: image_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.6.5+2"
+    version: "0.6.7"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   intl:
     dependency: transitive
     description:
@@ -243,10 +250,12 @@ packages:
   markdown_widget:
     dependency: "direct main"
     description:
-      name: markdown_widget
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.7"
+      path: "."
+      ref: dev
+      resolved-ref: "187fc38601f26a02c3d5b20c8cee5c4291ec5c1f"
+      url: "https://github.com/asjqkkkk/markdown_widget.git"
+    source: git
+    version: "1.2.0"
   matcher:
     dependency: transitive
     description:
@@ -379,7 +388,7 @@ packages:
       name: provider
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.5+1"
+    version: "4.1.2"
   pull_to_refresh:
     dependency: transitive
     description:
@@ -414,7 +423,7 @@ packages:
       name: shared_preferences
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.5.7"
+    version: "0.5.7+3"
   shared_preferences_macos:
     dependency: transitive
     description:
@@ -531,7 +540,7 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.4.5"
+    version: "5.4.10"
   url_launcher_macos:
     dependency: transitive
     description:
@@ -611,4 +620,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.5 <2.0.0"
+  flutter: ">=1.16.0 <2.0.0"

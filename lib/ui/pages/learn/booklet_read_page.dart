@@ -5,6 +5,7 @@ import 'package:markdown_widget/markdown_widget.dart';
 import 'package:oldbirds/model/model.dart';
 import 'package:oldbirds/states/booklet_read_state.dart';
 import 'package:oldbirds/states/states.dart';
+import 'package:oldbirds/themes/markdown_style.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -68,43 +69,7 @@ class BookletReadPage extends StatelessWidget {
                   ...MarkdownGenerator(
                     data: state.topic.content,
                     childMargin: EdgeInsets.only(top: 16),
-                    styleConfig: StyleConfig(
-                        imgBuilder: (String url, attributes) {
-                          final tag = EncryptUtil.encodeMd5(url);
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) {
-                                return FullScreenImage(imageUrl: url, tag: tag);
-                              }));
-                            },
-                            child: Hero(
-                              tag: tag,
-                              child: CachedNetworkImage(
-                                  imageUrl: url,
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                  placeholder: (context, url) => Container(
-                                        alignment: Alignment.center,
-                                        child: CircularProgressIndicator(),
-                                      )),
-                            ),
-                          );
-                        },
-                        ulConfig: UlConfig(
-                            textStyle: TextStyle(fontSize: 16, height: 1.5),
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            dotSize: 8,
-                            dotMargin: EdgeInsets.only(top: 9, right: 8)),
-                        pConfig: PConfig(
-                            linkStyle: TextStyle(
-                                fontSize: 16,
-                                height: 1.5,
-                                color: Color(0xffEF543C)),
-                            textStyle: TextStyle(fontSize: 16, height: 1.5),
-                            onLinkTap: (url) {
-                              launch(url);
-                            })),
+                    styleConfig: MarkdownStyle.buildStyleConfig(context),
                   ).widgets,
                 ],
               ),

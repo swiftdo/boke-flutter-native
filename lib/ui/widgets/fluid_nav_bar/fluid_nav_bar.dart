@@ -105,7 +105,7 @@ class _FluidNavBarState extends State<FluidNavBar>
           begin: Curves.easeInExpo.transform(_yController.value),
           end: inCurve.transform(_yController.value),
         ).transform(_yController.velocity.sign * 0.5 + 0.5),
-        Colors.white,
+        Theme.of(context).bottomAppBarColor,
       ),
     );
   }

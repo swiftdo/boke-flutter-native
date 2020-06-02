@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/states/states.dart';
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../widgets/widgets.dart';
+import 'package:oldbirds/themes/markdown_style.dart';
 
 class TopicDetailPage extends StatelessWidget {
   final String topicId;
@@ -44,39 +42,7 @@ class TopicDetailPage extends StatelessWidget {
             child: MarkdownWidget(
               data: state.topic.showContent,
               childMargin: EdgeInsets.only(top: 16),
-              styleConfig: StyleConfig(
-                  imgBuilder: (String url, attributes) {
-                    final tag = EncryptUtil.encodeMd5(url);
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return FullScreenImage(imageUrl: url, tag: tag);
-                        }));
-                      },
-                      child: Hero(
-                        tag: tag,
-                        child: CachedNetworkImage(
-                            imageUrl: url,
-                            errorWidget: (context, url, error) =>
-                                Icon(Icons.error),
-                            placeholder: (context, url) => Container(
-                                  alignment: Alignment.center,
-                                  child: CircularProgressIndicator(),
-                                )),
-                      ),
-                    );
-                  },
-                  ulConfig: UlConfig(
-                      textStyle: TextStyle(fontSize: 16, height: 1.5),
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      dotSize: 8,
-                      dotMargin: EdgeInsets.only(top: 9, right: 8)),
-                  pConfig: PConfig(
-                      linkStyle: TextStyle(fontSize: 16, height: 1.5),
-                      textStyle: TextStyle(fontSize: 16, height: 1.5),
-                      onLinkTap: (url) {
-                        launch(url);
-                      })),
+              styleConfig: MarkdownStyle.buildStyleConfig(context),
             ),
           );
         },

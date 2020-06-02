@@ -94,7 +94,7 @@ class _FluidNavBarButtonState extends State<FluidNavBarButton>
           margin: EdgeInsets.all(ne.width / 2 - _radius),
           constraints: BoxConstraints.tight(Size.square(_radius * 2)),
           decoration: ShapeDecoration(
-            color: Colors.white,
+            color: Theme.of(context).bottomAppBarColor,
             shape: CircleBorder(),
           ),
           transform: Matrix4.translationValues(0, -offset, 0),
