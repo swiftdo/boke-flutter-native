@@ -44,12 +44,9 @@ class _HomePageState extends State<HomePage>
                   child: TabBar(
                     isScrollable: true,
                     indicatorWeight: 4,
-                    indicatorColor: Color(0xffEF543C),
                     indicatorSize: TabBarIndicatorSize.label,
-                    labelColor: Color(0xffEF543C),
                     labelStyle:
                         TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                    unselectedLabelColor: Color(0xff333333),
                     tabs: state.subjects
                         .map((subject) => Tab(text: subject.name))
                         .toList(),

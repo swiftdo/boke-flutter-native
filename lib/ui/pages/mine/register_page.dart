@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/provider/provider_widget.dart';
-import 'package:oldbirds/routing/route_names.dart';
 import 'package:oldbirds/states/mine_register_state.dart';
 import 'package:provider/provider.dart';
+
 import '../../widgets/widgets.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -14,7 +14,6 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
@@ -47,15 +46,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         ? ButtonState.inProgress
                         : ButtonState.normal,
                     backgroundColor: state.enableRegister
-                        ? Color(0xff333333)
-                        : Color(0xffCACACA),
+                        ? Color(0xFFEF5138)
+                        : Theme.of(context).disabledColor,
                     progressColor: Colors.white,
                     child: Text(
                       '注册',
                       style: TextStyle(
                           color: state.enableRegister
                               ? Colors.white
-                              : Color(0xff999999),
+                              : Colors.white70,
                           fontSize: 16),
                     ),
                   ),
@@ -94,11 +93,11 @@ class _RegisterPageState extends State<RegisterPage> {
           child: TextField(
             onChanged: (text) => state.setName(text),
             decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff333333), width: 1)),
-                labelText: '昵称',
-                hintText: '请输入你的昵称',
-                labelStyle: TextStyle(color: Colors.grey)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xff333333), width: 1)),
+              labelText: '昵称',
+              hintText: '请输入你的昵称',
+            ),
           ),
         ),
         Container(
@@ -106,11 +105,11 @@ class _RegisterPageState extends State<RegisterPage> {
           child: TextField(
             onChanged: (text) => state.setEmail(text),
             decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff333333), width: 1)),
-                labelText: '邮箱',
-                hintText: '请输入邮箱',
-                labelStyle: TextStyle(color: Colors.grey)),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xff333333), width: 1)),
+              labelText: '邮箱',
+              hintText: '请输入邮箱',
+            ),
             keyboardType: TextInputType.emailAddress,
           ),
         ),
@@ -120,11 +119,11 @@ class _RegisterPageState extends State<RegisterPage> {
             onChanged: (text) => state.setPassword(text),
             obscureText: true,
             decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff333333), width: 1)),
-                labelText: '密码',
-                hintText: '请输入密码',
-                labelStyle: TextStyle(color: Colors.grey)),
+              focusedBorder:
+                  UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+              labelText: '密码',
+              hintText: '请输入密码',
+            ),
           ),
         ),
         Container(
@@ -133,11 +132,11 @@ class _RegisterPageState extends State<RegisterPage> {
             onChanged: (text) => state.setAgainPassword(text),
             obscureText: true,
             decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff333333), width: 1)),
-                labelText: '确认密码',
-                hintText: '请再次输入密码',
-                labelStyle: TextStyle(color: Colors.grey)),
+              focusedBorder:
+                  UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+              labelText: '确认密码',
+              hintText: '请再次输入密码',
+            ),
           ),
         ),
       ],

@@ -40,15 +40,14 @@ class _LoginPageState extends State<LoginPage> {
                         ? ButtonState.inProgress
                         : ButtonState.normal,
                     backgroundColor: state.enableLogin
-                        ? Color(0xff333333)
-                        : Color(0xffCACACA),
+                        ? Color(0xFFEF5138)
+                        : Theme.of(context).disabledColor,
                     progressColor: Colors.white,
                     child: Text(
                       '登录',
                       style: TextStyle(
-                          color: state.enableLogin
-                              ? Colors.white
-                              : Color(0xff999999),
+                          color:
+                              state.enableLogin ? Colors.white : Colors.white70,
                           fontSize: 16),
                     ),
                   ),
@@ -80,11 +79,11 @@ class _LoginPageState extends State<LoginPage> {
           child: TextField(
             onChanged: (text) => state.setEmail(text),
             decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff333333), width: 1)),
-                labelText: '邮箱',
-                hintText: '请输入邮箱',
-                labelStyle: TextStyle(color: Colors.grey)),
+              focusedBorder:
+                  UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+              labelText: '邮箱',
+              hintText: '请输入邮箱',
+            ),
             keyboardType: TextInputType.emailAddress,
           ),
         ),
@@ -94,11 +93,10 @@ class _LoginPageState extends State<LoginPage> {
             obscureText: true,
             onChanged: (text) => state.setPassword(text),
             decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xff333333), width: 1)),
+                focusedBorder:
+                    UnderlineInputBorder(borderSide: BorderSide(width: 1)),
                 labelText: '密码',
-                hintText: '请输入密码',
-                labelStyle: TextStyle(color: Colors.grey)),
+                hintText: '请输入密码'),
           ),
         ),
         GestureDetector(

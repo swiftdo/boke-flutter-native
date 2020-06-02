@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oldbirds/states/states.dart';
 import 'package:provider/provider.dart';
+import '../../widgets/widgets.dart';
 
 class SettingPage extends StatelessWidget {
   @override
@@ -8,7 +9,6 @@ class SettingPage extends StatelessWidget {
     return Consumer<GlobalUserState>(
       builder: (context, state, child) {
         return Scaffold(
-          backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 0,
             title: Text('设置'),
@@ -62,31 +62,6 @@ class SettingPage extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class SettingListTitle extends StatelessWidget {
-  final String title;
-  final Widget trailing;
-  final GestureTapCallback onTap;
-
-  const SettingListTitle({Key key, this.trailing, this.title, this.onTap})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          onTap: onTap,
-          title: Text(title),
-          trailing: trailing,
-        ),
-        Divider(
-          color: Color(0xfff4f4f4),
-        )
-      ],
     );
   }
 }

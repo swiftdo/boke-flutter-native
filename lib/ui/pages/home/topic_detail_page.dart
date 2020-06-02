@@ -13,7 +13,6 @@ class TopicDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         title: Text('文章详情'),
@@ -73,8 +72,7 @@ class TopicDetailPage extends StatelessWidget {
                       dotSize: 8,
                       dotMargin: EdgeInsets.only(top: 9, right: 8)),
                   pConfig: PConfig(
-                      linkStyle: TextStyle(
-                          fontSize: 16, height: 1.5, color: Color(0xffEF543C)),
+                      linkStyle: TextStyle(fontSize: 16, height: 1.5),
                       textStyle: TextStyle(fontSize: 16, height: 1.5),
                       onLinkTap: (url) {
                         launch(url);

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:loveli_core/loveli_core.dart';
-import 'package:oldbirds/locator.dart';
-import 'routing/routing.dart';
 import 'package:oktoast/oktoast.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:oldbirds/locator.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import 'routing/routing.dart';
 import 'states/states.dart';
-import 'themes/light_color.dart';
 import 'themes/theme_state.dart';
 
 void main() {
@@ -42,10 +41,8 @@ class _MyAppState extends State<MyApp> {
                 if (themeState.darkMode == 2) {
                   return MaterialApp(
                     title: 'Oldbirds',
-                    theme: ThemeData(
-                        brightness: Brightness.light,
-                        primarySwatch: lightColor),
-                    darkTheme: ThemeData.dark(),
+                    theme: themeState.lightTheme,
+                    darkTheme: themeState.darkTheme,
                     onGenerateRoute: generateRoute,
                     initialRoute: SplashRoute,
                     debugShowCheckedModeBanner: false,
@@ -54,10 +51,8 @@ class _MyAppState extends State<MyApp> {
                   return MaterialApp(
                     title: 'Oldbirds',
                     theme: themeState.darkMode == 1
-                        ? ThemeData.dark()
-                        : ThemeData(
-                            brightness: Brightness.light,
-                            primarySwatch: lightColor),
+                        ? themeState.darkTheme
+                        : themeState.lightTheme,
                     onGenerateRoute: generateRoute,
                     initialRoute: SplashRoute,
                     debugShowCheckedModeBanner: false,

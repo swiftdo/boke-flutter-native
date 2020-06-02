@@ -22,7 +22,6 @@ class BookletReadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
           title: ChangeNotifierProvider.value(
@@ -124,7 +123,6 @@ class BookletReadPage extends StatelessWidget {
                 BoxShadow(
                     offset: Offset(0, 0), color: Colors.black12, blurRadius: 4)
               ],
-              color: Colors.white,
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20), topLeft: Radius.circular(20))),
           child: Container(

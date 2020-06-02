@@ -9,7 +9,6 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         leading: GestureDetector(
@@ -34,9 +33,8 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
               padding: EdgeInsets.only(left: 16, right: 16, top: 12),
               child: TextField(
                 decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xff333333), width: 1)),
+                    focusedBorder:
+                        UnderlineInputBorder(borderSide: BorderSide(width: 1)),
                     labelText: '邮箱',
                     hintText: '请输入邮箱',
                     labelStyle: TextStyle(color: Colors.grey)),
@@ -48,12 +46,12 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
               child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xff333333), width: 1)),
-                    labelText: '新密码',
-                    hintText: '请输入新密码',
-                    labelStyle: TextStyle(color: Colors.grey)),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Color(0xff333333), width: 1)),
+                  labelText: '新密码',
+                  hintText: '请输入新密码',
+                ),
               ),
             ),
             Container(
@@ -61,24 +59,23 @@ class _ForgetPwdPageState extends State<ForgetPwdPage> {
               child: TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color(0xff333333), width: 1)),
-                    labelText: '确认新密码',
-                    hintText: '请再次输入新密码',
-                    labelStyle: TextStyle(color: Colors.grey)),
+                  focusedBorder:
+                      UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+                  labelText: '确认新密码',
+                  hintText: '请再次输入新密码',
+                ),
               ),
             ),
             Container(
                 decoration: BoxDecoration(
-                    color: Color(0xffCACACA),
-                    borderRadius: BorderRadius.circular(5)),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white),
                 alignment: Alignment.center,
                 padding: EdgeInsets.only(top: 12, bottom: 12),
                 margin: EdgeInsets.only(left: 16, right: 16, top: 20),
                 child: Text(
                   '提交',
-                  style: TextStyle(color: Color(0xff999999), fontSize: 16),
+                  style: TextStyle(fontSize: 16),
                 )),
           ],
         ),

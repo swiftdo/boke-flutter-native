@@ -30,9 +30,7 @@ class _HomeNewsPageState extends State<HomeNewsPage>
       builder: (context, HomeNewsState newsState, child) {
         return SmartRefresher(
           controller: newsState.refreshController,
-          header: WaterDropMaterialHeader(
-            color: Color(0xffEF543C),
-          ),
+          header: WaterDropMaterialHeader(),
           footer: ClassicFooter(
               idleText: '上拉加载',
               loadingText: '加载中…',

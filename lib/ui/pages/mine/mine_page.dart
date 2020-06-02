@@ -23,7 +23,6 @@ class _MinePageState extends State<MinePage> {
               height: 16,
             ),
             Container(
-              color: Colors.white,
               child: Column(
                 children: <Widget>[
                   MineListTitle(title: '我的消息', icon: Icons.notifications),
@@ -71,12 +70,11 @@ class MineListTitle extends StatelessWidget {
           trailing: Icon(
             Icons.arrow_forward_ios,
             size: 18,
-            color: Color(0xfff4f4f4),
           ),
         ),
         showLine
             ? Divider(
-                color: Color(0xfff4f4f4),
+                height: 0.5,
               )
             : Container()
       ],
@@ -88,7 +86,6 @@ class MineHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       padding: EdgeInsets.all(16),
       height: 100,
       child: Consumer<GlobalUserState>(
@@ -114,6 +111,7 @@ class MineHeader extends StatelessWidget {
                               'assets/images/mine_user_not_login.svg',
                               width: 80,
                               height: 80,
+                              color: Theme.of(context).primaryColor,
                             );
                           },
                         )
@@ -121,6 +119,7 @@ class MineHeader extends StatelessWidget {
                           'assets/images/mine_user_not_login.svg',
                           width: 80,
                           height: 80,
+                          color: Theme.of(context).primaryColor,
                         ),
                 ),
                 Expanded(
