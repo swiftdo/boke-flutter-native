@@ -58,7 +58,6 @@ class BookletPage extends StatelessWidget {
   SliverToBoxAdapter _buildHeader(BookletState state) {
     return SliverToBoxAdapter(
       child: Container(
-        color: Colors.white,
         padding: EdgeInsets.all(16),
         child: Row(
           children: <Widget>[
@@ -119,9 +118,7 @@ class CatalogTree extends StatelessWidget {
               item.title,
               style: TextStyle(
                   fontSize: 18.0 * (18 - item.level) / 18,
-                  color: selectCatalogId == item.id
-                      ? Colors.red
-                      : Color(0xff333333)),
+                  color: selectCatalogId == item.id ? Colors.red : null),
             ),
           ),
           ...item.child.map((e) => CatalogTree(

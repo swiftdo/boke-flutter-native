@@ -76,32 +76,44 @@ class _LearnPageState extends State<LearnPage> {
                     aspectRatio: 2.0,
                     onPageChanged: (index, reason) {})),
           )),
-          LearnSectionView(
-            title: '专题',
-            child: Wrap(
-              runSpacing: 16,
-              spacing: (MediaQuery.of(context).size.width - 32 - 4 * 60) / 3,
-              children: <Widget>[
-                LearnSubjectView(title: '课程'),
-                LearnSubjectView(title: '面试题'),
-                LearnSubjectView(title: '手册'),
-                LearnSubjectView(title: '测一测'),
-                LearnSubjectView(title: 'roadmap'),
-                LearnSubjectView(title: 'leadcode')
-              ],
+          SliverToBoxAdapter(
+            child: Container(
+              margin: EdgeInsets.only(top: 16),
+              height: 100.0,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 100.0,
+                    child: Card(
+                      child: Text('data'),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
           LearnSectionView(
+            padding: EdgeInsets.only(top: 20),
             title: '热门手册',
             child: Container(
-                child: CarouselSlider(
-              options: CarouselOptions(
-                viewportFraction: 0.95,
-                initialPage: 1,
-                enableInfiniteScroll: false,
+              height: 120.0,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                scrollDirection: Axis.horizontal,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    width: 100.0,
+                    child: Card(
+                      child: Text('data'),
+                    ),
+                  );
+                },
               ),
-              items: imageSliders,
-            )),
+            ),
           ),
           LearnSectionView(
             title: '热门课程',
@@ -126,35 +138,43 @@ class LearnBookletView extends StatelessWidget {
 class LearnSectionView extends StatelessWidget {
   final String title;
   final Widget child;
+  final EdgeInsets padding;
   const LearnSectionView({
     Key key,
     this.title,
     this.child,
+    this.padding = const EdgeInsets.only(left: 16, right: 16, top: 20),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SliverToBoxAdapter(
       child: Container(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 20),
+        padding: padding,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                  width: 6,
-                  height: 18,
-                  color: Color(0xff333333),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 5),
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Container(
+              padding: EdgeInsets.only(left: padding.left > 0 ? 0 : 16),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    width: 6,
+                    height: 18,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Color(0xff333333),
                   ),
-                )
-              ],
+                  Container(
+                    margin: EdgeInsets.only(left: 5),
+                    child: Text(
+                      title,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
             ),
             Container(
               margin: EdgeInsets.only(top: 16),

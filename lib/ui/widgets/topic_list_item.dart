@@ -30,10 +30,7 @@ class TopicListItem extends StatelessWidget {
       children: <Widget>[
         Text(
           item.title,
-          style: TextStyle(
-              color: Color(0xff333333),
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         Padding(
           padding: EdgeInsets.only(top: 5),
@@ -70,9 +67,9 @@ class TopicListItem extends StatelessWidget {
           child: Text(
             item.title,
             style: TextStyle(
-                color: Color(0xff333333),
-                fontSize: 16,
-                fontWeight: FontWeight.bold),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         _buildTagsWidget(),

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:markdown_widget/markdown_widget.dart';
@@ -7,9 +6,7 @@ import 'package:oldbirds/states/booklet_read_state.dart';
 import 'package:oldbirds/states/states.dart';
 import 'package:oldbirds/themes/markdown_style.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-import '../../widgets/widgets.dart';
 import 'booklet_page.dart';
 
 class BookletReadPage extends StatelessWidget {
@@ -84,9 +81,10 @@ class BookletReadPage extends StatelessWidget {
               right: 16,
               bottom: MediaQuery.of(context).padding.bottom),
           decoration: BoxDecoration(
+              color: Theme.of(context).scaffoldBackgroundColor,
               boxShadow: [
                 BoxShadow(
-                    offset: Offset(0, 0), color: Colors.black12, blurRadius: 4)
+                    offset: Offset(0, 0), color: Colors.black54, blurRadius: 4),
               ],
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(20), topLeft: Radius.circular(20))),
@@ -97,9 +95,8 @@ class BookletReadPage extends StatelessWidget {
                 GestureDetector(
                   child: Text(
                     '上一节',
-                    style: TextStyle(
-                        color:
-                            state.canPreview ? Color(0xff333333) : Colors.grey),
+                    style:
+                        TextStyle(color: state.canPreview ? null : Colors.grey),
                   ),
                   onTap: () {
                     state.preview();
@@ -121,7 +118,8 @@ class BookletReadPage extends StatelessWidget {
                               clipBehavior: Clip.hardEdge,
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   borderRadius: BorderRadius.only(
                                     topLeft: const Radius.circular(10),
                                     topRight: const Radius.circular(10),
@@ -155,10 +153,7 @@ class BookletReadPage extends StatelessWidget {
                   },
                   child: Text(
                     '查看目录',
-                    style: TextStyle(
-                        color: Color(0xff333333),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
                 GestureDetector(
@@ -167,8 +162,7 @@ class BookletReadPage extends StatelessWidget {
                   },
                   child: Text(
                     '下一节',
-                    style: TextStyle(
-                        color: state.canNext ? Color(0xff333333) : Colors.grey),
+                    style: TextStyle(color: state.canNext ? null : Colors.grey),
                   ),
                 )
               ],
