@@ -20,8 +20,10 @@ abstract class ViewStateRefreshListModel<T> extends ViewStateListModel<T> {
     try {
       _currentPageNum = pageNumFirst;
       var data = await loadData(pageNum: pageNumFirst);
-      if (data.isEmpty) {
-        refreshController.refreshCompleted(resetFooterState: true);
+      if (data == null || data.isEmpty) {
+        refreshController.refreshCompleted(
+          resetFooterState: refreshController.footerStatus == LoadStatus.noMore,
+        );
         list.clear();
         setEmpty();
       } else {

@@ -24,9 +24,7 @@ class _HomeNewsPageState extends State<HomeNewsPage>
     super.build(context);
     return ProviderWidget(
       model: HomeNewsState(widget.subjectId),
-      onModelReady: (model) {
-        model.initData();
-      },
+      onModelReady: (HomeNewsState model) => model.initData(),
       builder: (context, HomeNewsState newsState, child) {
         return SmartRefresher(
           controller: newsState.refreshController,

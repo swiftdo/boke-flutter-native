@@ -12,7 +12,7 @@ abstract class ViewStateListModel<T> extends ViewStateModel {
   refresh({bool init = false}) async {
     try {
       List<T> data = await loadData();
-      if (data.isEmpty) {
+      if (data == null || data.isEmpty) {
         list.clear();
         setEmpty();
       } else {
