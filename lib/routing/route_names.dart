@@ -11,3 +11,4 @@ const String BookletRoute = "booklet";
 const String BookletReadRoute = "booklet_read";
 const String ThemeRoute = "theme";
 const String SplashRoute = 'splash';
+const String AboutMeRoute = 'about_me';

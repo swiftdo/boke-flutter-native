@@ -1,9 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:oldbirds/states/global_user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:oldbirds/routing/route_names.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:path_provider/path_provider.dart';
+
+import 'package:oktoast/oktoast.dart';
+import 'package:device_info/device_info.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:package_info/package_info.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -25,8 +33,11 @@ class _MinePageState extends State<MinePage> {
             Container(
               child: Column(
                 children: <Widget>[
-                  MineListTitle(title: '我的消息', icon: Icons.notifications),
-                  MineListTitle(title: '意见反馈', icon: Icons.feedback),
+                  MineListTitle(
+                    title: '意见反馈',
+                    icon: Icons.feedback,
+                    onTap: _sendFaceBack,
+                  ),
                   MineListTitle(
                     title: '主题配置',
                     icon: Icons.color_lens,
@@ -49,6 +60,86 @@ class _MinePageState extends State<MinePage> {
         ),
       ),
     );
+  }
+
+  Future _sendFaceBack() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String appInfo = '${packageInfo.version}(${packageInfo.buildNumber})';
+    String path = await _getEmailAttachmentPath();
+    final Email email = Email(
+      body: 'Hello, Oldbirds\n $appInfo',
+      subject: '[OldBirds]意见反馈',
+      recipients: ['oheroj@gmail.com'],
+      attachmentPaths: [path],
+      isHTML: false,
+    );
+    await FlutterEmailSender.send(email);
+  }
+
+  Future<String> _getEmailAttachmentPath() async {
+    DeviceInfoPlugin deviceInfo = new DeviceInfoPlugin();
+    String deviceString;
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      deviceString = _readAndroidBuildData(androidInfo).toString();
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      deviceString = _readIosDeviceInfo(iosInfo).toString();
+    }
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    String name = DateTime.now().millisecondsSinceEpoch.toString() +
+        '_oldbirds_faceback.txt';
+    File file = File('$dir/$name');
+    file.writeAsString(deviceString);
+    return file.path;
+  }
+
+  Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
+    return <String, dynamic>{
+      'version.securityPatch': build.version.securityPatch,
+      'version.sdkInt': build.version.sdkInt,
+      'version.release': build.version.release,
+      'version.previewSdkInt': build.version.previewSdkInt,
+      'version.incremental': build.version.incremental,
+      'version.codename': build.version.codename,
+      'version.baseOS': build.version.baseOS,
+      'board': build.board,
+      'bootloader': build.bootloader,
+      'brand': build.brand,
+      'device': build.device,
+      'display': build.display,
+      'fingerprint': build.fingerprint,
+      'hardware': build.hardware,
+      'host': build.host,
+      'id': build.id,
+      'manufacturer': build.manufacturer,
+      'model': build.model,
+      'product': build.product,
+      'supported32BitAbis': build.supported32BitAbis,
+      'supported64BitAbis': build.supported64BitAbis,
+      'supportedAbis': build.supportedAbis,
+      'tags': build.tags,
+      'type': build.type,
+      'isPhysicalDevice': build.isPhysicalDevice,
+      'androidId': build.androidId
+    };
+  }
+
+  Map<String, dynamic> _readIosDeviceInfo(IosDeviceInfo data) {
+    return <String, dynamic>{
+      'name': data.name,
+      'systemName': data.systemName,
+      'systemVersion': data.systemVersion,
+      'model': data.model,
+      'localizedModel': data.localizedModel,
+      'identifierForVendor': data.identifierForVendor,
+      'isPhysicalDevice': data.isPhysicalDevice,
+      'utsname.sysname:': data.utsname.sysname,
+      'utsname.nodename:': data.utsname.nodename,
+      'utsname.release:': data.utsname.release,
+      'utsname.version:': data.utsname.version,
+      'utsname.machine:': data.utsname.machine,
+    };
   }
 }
 
@@ -87,7 +178,7 @@ class MineHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(16),
-      height: 100,
+      height: 120,
       child: Consumer<GlobalUserState>(
         builder: (context, state, child) {
           return GestureDetector(
@@ -105,6 +196,9 @@ class MineHeader extends StatelessWidget {
                 ClipOval(
                   child: state.isLogin
                       ? CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          width: 80,
+                          height: 80,
                           imageUrl: state.user.avatar,
                           placeholder: (context, str) {
                             return SvgPicture.asset(

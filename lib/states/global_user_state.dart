@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:loveli_core/loveli_core.dart';
 import '../model/model.dart';
 import 'package:oldbirds/macro.dart';
+import 'package:oldbirds/services/services.dart';
+import 'package:oldbirds/locator.dart';
 
 class GlobalUserState extends ViewStateModel {
   User _user;
@@ -9,6 +11,8 @@ class GlobalUserState extends ViewStateModel {
 
   User get user => _user;
   Token get token => _token;
+
+  final repository = locator<NativeRepository>();
 
   GlobalUserState() {
     _initData();
@@ -52,6 +56,16 @@ class GlobalUserState extends ViewStateModel {
     SpUtil.remove(Macro.saveKeyUser);
     SpUtil.remove(Macro.saveKeyToken);
     notifyListeners();
+  }
+
+  changeUserAvatar(String url) async {
+    final User res =
+        await repository.updateUser(avatar: url, token: token.accessToken);
+    setUser(res);
+  }
+
+  Future<String> getQiNiuToken() async {
+    return await repository.getQiNiuToken(token: token.accessToken);
   }
 
   bool get isLogin => user != null && token != null;

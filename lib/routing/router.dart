@@ -63,6 +63,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) {
         return ThemePage();
       });
+    case AboutMeRoute:
+      return MaterialPageRoute(builder: (context) {
+        return AboutMePage();
+      });
     default:
       return MaterialPageRoute(builder: (context) {
         return Scaffold(

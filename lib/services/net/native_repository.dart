@@ -63,4 +63,37 @@ class NativeRepository {
     List data = response.data;
     return data.map((e) => Catalog.fromMap(e)).toList();
   }
+
+  Future<Learn> getLearn() async {
+    var response = await http.get('/app/learn');
+    Map data = response.data;
+    return Learn.fromMap(data);
+  }
+
+  Future<String> getQiNiuToken({String token}) async {
+    var response = await http.get(
+      '/app/qiniu',
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+    );
+    String data = response.data;
+    return data;
+  }
+
+  Future<User> updateUser({String avatar, String token}) async {
+    var respnse = await http.post(
+      '/auth/user/update',
+      data: FormData.fromMap(
+        {
+          "avatar": avatar,
+        },
+      ),
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+    );
+    Map data = respnse.data;
+    return User.fromMap(data);
+  }
 }
