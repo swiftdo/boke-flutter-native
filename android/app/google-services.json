@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "918768658600",
+    "firebase_url": "https://oldbirds-d78c5.firebaseio.com",
+    "project_id": "oldbirds-d78c5",
+    "storage_bucket": "oldbirds-d78c5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918768658600:android:0a05fd0dec9b0229c83a9d",
+        "android_client_info": {
+          "package_name": "site.loveli.oldbirds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918768658600-vt1dn3nn8jg6prnsbjglv4sonn2thbjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1WQT7EPD8fsNc7WEtwajgl9dvXLDrXVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918768658600-vt1dn3nn8jg6prnsbjglv4sonn2thbjd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "918768658600-79pjlff0c9bccdg8f10274g5si0jg4e7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "site.loveli.oldbirds"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

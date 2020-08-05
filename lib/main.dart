@@ -7,6 +7,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'routing/routing.dart';
 import 'states/states.dart';
 import 'themes/theme_state.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import 'services/ad/ad_manager.dart';
 
 void main() {
   setupLocator();
@@ -22,6 +24,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _initAdMob();
+  }
+
+  _initAdMob() {
+    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
   @override

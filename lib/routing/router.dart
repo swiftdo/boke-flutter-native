@@ -67,6 +67,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) {
         return AboutMePage();
       });
+    case GamesRoute:
+      return MaterialPageRoute(builder: (context) {
+        return GamePage();
+      });
+    case AnswerRoute:
+      return MaterialPageRoute(builder: (context) {
+        return AnswerPage();
+      });
     default:
       return MaterialPageRoute(builder: (context) {
         return Scaffold(

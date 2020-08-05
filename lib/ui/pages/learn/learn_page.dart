@@ -68,6 +68,11 @@ class _LearnPageState extends State<LearnPage> {
               onTap: () {
                 if (tool.type == 1) {
                   Navigator.of(context).pushNamed(BookletsRoute);
+                } else if (tool.type == 2) {
+                  Navigator.of(context).pushNamed(GamesRoute);
+                } else if (tool.type == 3) {
+                  // 答案之书
+                  Navigator.of(context).pushNamed(AnswerRoute);
                 }
               },
               child: Container(
