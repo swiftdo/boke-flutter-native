@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:oldbirds/routing/route_names.dart';
 
 class LoginProtocol extends StatelessWidget {
   final bool isChecked;
@@ -28,9 +30,29 @@ class LoginProtocol extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(text: '我已阅读 OldBirds 的'),
-                      TextSpan(text: '《用户服务协议》'),
+                      TextSpan(
+                          text: '《用户服务协议》',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context)
+                                  .pushNamed(WebViewRoute, arguments: {
+                                'title': '用户服务协议',
+                                'url':
+                                    'https://oldbird.run/about/app/t1-protocol.html',
+                              });
+                            }),
                       TextSpan(text: '和'),
-                      TextSpan(text: '《隐私政策》'),
+                      TextSpan(
+                          text: '《隐私政策》',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.of(context).pushNamed(WebViewRoute,
+                                  arguments: {
+                                    'title': '隐私政策',
+                                    'url':
+                                        'https://oldbird.run/about/app/t2-secrect.html'
+                                  });
+                            }),
                     ],
                     style: TextStyle(fontSize: 14, height: 1.4),
                   ),

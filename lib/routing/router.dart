@@ -75,6 +75,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) {
         return AnswerPage();
       });
+    case WebViewRoute:
+      Map args = ValueUtil.toMap(settings.arguments);
+      return MaterialPageRoute(builder: (context) {
+        return WebViewPage(
+          title: args['title'],
+          url: args['url'],
+        );
+      });
     default:
       return MaterialPageRoute(builder: (context) {
         return Scaffold(

@@ -17,3 +17,4 @@ export 'learn/booklet_read_page.dart';
 export 'mine/about_me_page.dart';
 export 'game/game_route.dart';
 export 'answer/answer_page.dart';
+export 'mine/webview_page.dart';

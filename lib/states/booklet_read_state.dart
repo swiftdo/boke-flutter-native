@@ -15,10 +15,11 @@ class BookletReadState extends ViewStateModel {
 
   List<Catalog> _flatCatalogs;
 
-  BookletReadState(
-      {@required this.currentCatalog,
-      @required this.catalogs,
-      @required this.titleState}) {
+  BookletReadState({
+    @required this.currentCatalog,
+    @required this.catalogs,
+    @required this.titleState,
+  }) {
     _flatCatalogs = [];
     _setupFlatList(catalogs);
   }

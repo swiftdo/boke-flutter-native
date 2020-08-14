@@ -12,6 +12,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:package_info/package_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MinePage extends StatefulWidget {
   @override
@@ -73,7 +74,15 @@ class _MinePageState extends State<MinePage> {
       attachmentPaths: [path],
       isHTML: false,
     );
-    await FlutterEmailSender.send(email);
+    if (await canLaunch("mailto:oheroj@gmail.com")) {
+      try {
+        await FlutterEmailSender.send(email);
+      } catch (e) {
+        showToast('无法发送邮件');
+      }
+    } else {
+      showToast('无法发送邮件');
+    }
   }
 
   Future<String> _getEmailAttachmentPath() async {

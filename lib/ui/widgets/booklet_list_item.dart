@@ -45,7 +45,11 @@ class BookletListItem extends StatelessWidget {
                         ),
                         Padding(
                           padding: EdgeInsets.only(top: 8),
-                          child: Text(item.remarks),
+                          child: Text(
+                            item.remarks,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         )
                       ],
                     ),

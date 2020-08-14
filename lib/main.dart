@@ -1,3 +1,4 @@
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:oldbirds/locator.dart';
@@ -5,10 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'routing/routing.dart';
+import 'services/ad/ad_manager.dart';
 import 'states/states.dart';
 import 'themes/theme_state.dart';
-import 'package:firebase_admob/firebase_admob.dart';
-import 'services/ad/ad_manager.dart';
 
 void main() {
   setupLocator();
@@ -24,11 +24,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    _initAdMob();
+    _setupAd();
   }
 
-  _initAdMob() {
-    return FirebaseAdMob.instance.initialize(appId: AdManager.appId);
+  void _setupAd() async {
+    await FirebaseAdMob.instance.initialize(appId: AdManager.appId);
   }
 
   @override
@@ -38,8 +38,14 @@ class _MyAppState extends State<MyApp> {
       textPadding: EdgeInsets.all(20),
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (ctx) => GlobalUserState()),
-          ChangeNotifierProvider(create: (ctx) => ThemeState())
+          ChangeNotifierProvider(
+            create: (ctx) => GlobalUserState(),
+            lazy: false,
+          ),
+          ChangeNotifierProvider(
+            create: (ctx) => ThemeState(),
+            lazy: false,
+          )
         ],
         child: RefreshConfiguration(
             hideFooterWhenNotFull: true, //列表数据不满一页,不触发加载更多
@@ -47,7 +53,6 @@ class _MyAppState extends State<MyApp> {
               builder: (context, themeState, child) {
                 if (themeState.darkMode == 2) {
                   return MaterialApp(
-                    title: 'Oldbirds',
                     theme: themeState.lightTheme,
                     darkTheme: themeState.darkTheme,
                     onGenerateRoute: generateRoute,
@@ -56,7 +61,6 @@ class _MyAppState extends State<MyApp> {
                   );
                 } else {
                   return MaterialApp(
-                    title: 'Oldbirds',
                     theme: themeState.darkMode == 1
                         ? themeState.darkTheme
                         : themeState.lightTheme,

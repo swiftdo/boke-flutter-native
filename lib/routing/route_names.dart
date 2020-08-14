@@ -14,3 +14,4 @@ const String SplashRoute = 'splash';
 const String AboutMeRoute = 'about_me';
 const String GamesRoute = 'game';
 const String AnswerRoute = 'answer_page';
+const String WebViewRoute = 'webview_page';

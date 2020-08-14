@@ -3,9 +3,15 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 class AnswerPageState extends ChangeNotifier {
-  String answer;
+  String _answer;
+  bool _inProgress = false;
 
-  bool get empty => answer == null || answer.length == 0;
+  bool _isAsk = true;
+  bool get isAsk => _isAsk;
+
+  bool get inProgress => _inProgress;
+
+  String get answer => _answer;
 
   final _random = Random();
 
@@ -221,13 +227,29 @@ class AnswerPageState extends ChangeNotifier {
     "你开心就好"
   ];
 
-  getAnswer() {
-    answer = answers[_random.nextInt(answers.length)];
+  getAnswer() async {
+    _isAsk = true;
+    _inProgress = true;
     notifyListeners();
+
+    return Future.delayed(Duration(seconds: 2), () {
+      _isAsk = false;
+      _answer = answers[_random.nextInt(answers.length)];
+      _inProgress = false;
+      notifyListeners();
+    });
   }
 
-  onNext() {
-    answer = null;
+  getAsk() {
+    _isAsk = false;
+    _inProgress = true;
     notifyListeners();
+
+    Future.delayed(Duration(seconds: 2), () {
+      _inProgress = false;
+      _isAsk = true;
+      _answer = null;
+      notifyListeners();
+    });
   }
 }

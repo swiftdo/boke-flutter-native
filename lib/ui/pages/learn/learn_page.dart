@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:oldbirds/routing/routing.dart';
+import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
+import 'package:oldbirds/routing/routing.dart';
 import 'package:oldbirds/states/learn_state.dart';
 import 'package:oldbirds/ui/ui.dart';
+
 import '../../../model/model.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:oldbirds/routing/routing.dart';
 
 class LearnPage extends StatefulWidget {
   @override

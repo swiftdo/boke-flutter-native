@@ -14,44 +14,52 @@ class BookletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Icon(Icons.arrow_back_ios),
-          ),
+      appBar: AppBar(
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: Icon(Icons.arrow_back_ios),
         ),
-        body: ProviderWidget(
-            model: BookletState(bookletId: bookletId),
-            onModelReady: (BookletState state) {
-              state.loadData();
-            },
-            builder: (context, BookletState state, child) {
-              if (state.viewState == ViewState.busy) {
-                return ViewStateBusyWidget();
-              } else if (state.viewState == ViewState.error ||
-                  state.booklet == null) {
-                return Container();
-              }
-              return CustomScrollView(
-                slivers: <Widget>[_buildHeader(state), _buildCatalogs(state)],
-              );
-            }));
+      ),
+      body: ProviderWidget(
+        model: BookletState(bookletId: bookletId),
+        onModelReady: (BookletState state) {
+          state.loadData();
+        },
+        builder: (context, BookletState state, child) {
+          if (state.viewState == ViewState.busy) {
+            return ViewStateBusyWidget();
+          } else if (state.viewState == ViewState.error ||
+              state.booklet == null) {
+            return Container();
+          }
+          return CustomScrollView(
+            slivers: <Widget>[
+              _buildHeader(state),
+              _buildCatalogs(state),
+            ],
+          );
+        },
+      ),
+    );
   }
 
   SliverList _buildCatalogs(BookletState state) {
     return SliverList(
-      delegate: SliverChildBuilderDelegate((context, index) {
-        return CatalogTree(
-          item: state.catalogs[index],
-          onTap: (item) {
-            Navigator.of(context).pushNamed(BookletReadRoute,
-                arguments: {"catalogs": state.catalogs, "catalog": item});
-          },
-        );
-      }, childCount: state.catalogs.length),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return CatalogTree(
+            item: state.catalogs[index],
+            onTap: (item) {
+              Navigator.of(context).pushNamed(BookletReadRoute,
+                  arguments: {"catalogs": state.catalogs, "catalog": item});
+            },
+          );
+        },
+        childCount: state.catalogs.length,
+      ),
     );
   }
 
@@ -81,7 +89,11 @@ class BookletPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10),
-                      child: Text(state.booklet.remarks),
+                      child: Text(
+                        state.booklet.remarks,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 4,
+                      ),
                     )
                   ],
                 ),
@@ -111,14 +123,15 @@ class CatalogTree extends StatelessWidget {
         children: <Widget>[
           GestureDetector(
             behavior: HitTestBehavior.opaque,
-            onTap: () {
-              onTap(item);
-            },
-            child: Text(
-              item.title,
-              style: TextStyle(
-                  fontSize: 18.0 * (18 - item.level) / 18,
-                  color: selectCatalogId == item.id ? Colors.red : null),
+            onTap: () => onTap(item),
+            child: Container(
+              width: double.infinity,
+              child: Text(
+                item.title,
+                style: TextStyle(
+                    fontSize: 18.0 * (18 - item.level) / 18,
+                    color: selectCatalogId == item.id ? Colors.red : null),
+              ),
             ),
           ),
           ...item.child.map((e) => CatalogTree(

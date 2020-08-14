@@ -7,8 +7,8 @@ final Http http = Http();
 class Http extends BaseHttp {
   @override
   void init() {
-//    options.baseUrl = 'https://sb.loveli.site/api';
-    options.baseUrl = 'http://oldbirds.qicp.vip/api';
+    options.baseUrl = 'https://sb.loveli.site/api';
+//    options.baseUrl = 'http://oldbirds.qicp.vip/api';
     interceptors.add(NativeApiInterceptor());
   }
 }
