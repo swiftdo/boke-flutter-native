@@ -4,6 +4,7 @@ import 'package:oktoast/oktoast.dart';
 import 'package:oldbirds/locator.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
 
 import 'routing/routing.dart';
 import 'services/ad/ad_manager.dart';
@@ -21,10 +22,49 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  JPush jpush = JPush();
+
   @override
   void initState() {
     super.initState();
     _setupAd();
+    _initJpush();
+  }
+
+  Future<void> _initJpush() async {
+    try {
+      //监听消息通知
+      jpush.addEventHandler(
+        // 接收通知回调方法。
+        onReceiveNotification: (Map<String, dynamic> message) async {
+          debugPrint("flutter onReceiveNotification: $message");
+        },
+        // 点击通知回调方法。
+        onOpenNotification: (Map<String, dynamic> message) async {
+          debugPrint("flutter onOpenNotification: $message");
+        },
+        // 接收自定义消息回调方法。
+        onReceiveMessage: (Map<String, dynamic> message) async {
+          debugPrint("flutter onReceiveMessage: $message");
+        },
+      );
+    } catch (error) {
+      debugPrint('平台版本获取失败，请检查！');
+    }
+    //初始化
+    jpush.setup(
+      appKey: "aaa5445d09e93ea32f97b9dd",
+      channel: "flutter",
+      production: false,
+      debug: true, // 设置是否打印 debug 日志
+    );
+
+    jpush.applyPushAuthority(
+        NotificationSettingsIOS(sound: true, alert: true, badge: true));
+    //获取注册的id
+    jpush.getRegistrationID().then((rid) {
+      debugPrint("获取注册的id:$rid");
+    });
   }
 
   void _setupAd() async {
