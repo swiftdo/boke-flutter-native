@@ -11,10 +11,7 @@ import 'services/ad/ad_manager.dart';
 import 'states/states.dart';
 import 'themes/theme_state.dart';
 
-void main() {
-  setupLocator();
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
@@ -27,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    setupLocator();
     _setupAd();
     _initJpush();
   }
@@ -42,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         // 点击通知回调方法。
         onOpenNotification: (Map<String, dynamic> message) async {
           debugPrint("flutter onOpenNotification: $message");
+          jpush.clearAllNotifications();
         },
         // 接收自定义消息回调方法。
         onReceiveMessage: (Map<String, dynamic> message) async {
@@ -55,16 +54,16 @@ class _MyAppState extends State<MyApp> {
     jpush.setup(
       appKey: "aaa5445d09e93ea32f97b9dd",
       channel: "flutter",
-      production: false,
-      debug: true, // 设置是否打印 debug 日志
+      production: true,
+      debug: false, // 设置是否打印 debug 日志
     );
 
-    jpush.applyPushAuthority(
-        NotificationSettingsIOS(sound: true, alert: true, badge: true));
+    jpush.applyPushAuthority(NotificationSettingsIOS(sound: true, alert: true, badge: true));
     //获取注册的id
     jpush.getRegistrationID().then((rid) {
       debugPrint("获取注册的id:$rid");
     });
+    jpush.clearAllNotifications();
   }
 
   void _setupAd() async {
@@ -88,29 +87,28 @@ class _MyAppState extends State<MyApp> {
           )
         ],
         child: RefreshConfiguration(
-            hideFooterWhenNotFull: true, //列表数据不满一页,不触发加载更多
-            child: Consumer<ThemeState>(
-              builder: (context, themeState, child) {
-                if (themeState.darkMode == 2) {
-                  return MaterialApp(
-                    theme: themeState.lightTheme,
-                    darkTheme: themeState.darkTheme,
-                    onGenerateRoute: generateRoute,
-                    initialRoute: SplashRoute,
-                    debugShowCheckedModeBanner: false,
-                  );
-                } else {
-                  return MaterialApp(
-                    theme: themeState.darkMode == 1
-                        ? themeState.darkTheme
-                        : themeState.lightTheme,
-                    onGenerateRoute: generateRoute,
-                    initialRoute: SplashRoute,
-                    debugShowCheckedModeBanner: false,
-                  );
-                }
-              },
-            )),
+          hideFooterWhenNotFull: true, //列表数据不满一页,不触发加载更多
+          child: Consumer<ThemeState>(
+            builder: (context, themeState, child) {
+              if (themeState.darkMode == 2) {
+                return MaterialApp(
+                  theme: themeState.lightTheme,
+                  darkTheme: themeState.darkTheme,
+                  onGenerateRoute: generateRoute,
+                  initialRoute: SplashRoute,
+                  debugShowCheckedModeBanner: false,
+                );
+              } else {
+                return MaterialApp(
+                  theme: themeState.darkMode == 1 ? themeState.darkTheme : themeState.lightTheme,
+                  onGenerateRoute: generateRoute,
+                  initialRoute: SplashRoute,
+                  debugShowCheckedModeBanner: false,
+                );
+              }
+            },
+          ),
+        ),
       ),
     );
   }

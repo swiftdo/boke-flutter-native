@@ -8,8 +8,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -27,8 +26,8 @@ class _HomePageState extends State<HomePage>
         homeState.loadSubjects();
       },
       builder: (context, HomeState state, child) {
-        if (state.viewState == ViewState.error || state.subjects.length == 0) {
-          return Container();
+        if (state.viewState == ViewState.error || state.viewState == ViewState.busy || state.subjects.length == 0) {
+          return ViewStateBusyWidget();
         }
         return DefaultTabController(
           length: state.subjects.length,
@@ -45,11 +44,8 @@ class _HomePageState extends State<HomePage>
                     isScrollable: true,
                     indicatorWeight: 4,
                     indicatorSize: TabBarIndicatorSize.label,
-                    labelStyle:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                    tabs: state.subjects
-                        .map((subject) => Tab(text: subject.name))
-                        .toList(),
+                    labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                    tabs: state.subjects.map((subject) => Tab(text: subject.name)).toList(),
                   ),
                 ),
               ),

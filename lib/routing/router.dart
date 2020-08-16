@@ -14,8 +14,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         return MainPage();
       });
     case LoginRoute:
-      return CupertinoPageRoute(
-          fullscreenDialog: true, builder: (context) => LoginPage());
+      return CupertinoPageRoute(fullscreenDialog: true, builder: (context) => LoginPage());
     case RegisterRoute:
       return MaterialPageRoute(builder: (context) {
         return RegisterPage();
@@ -56,8 +55,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case BookletReadRoute:
       return MaterialPageRoute(builder: (context) {
         Map args = ValueUtil.toMap(settings.arguments);
-        return BookletReadPage(
-            catalog: args['catalog'], catalogs: args['catalogs']);
+        return BookletReadPage(catalog: args['catalog'], catalogs: args['catalogs']);
       });
     case ThemeRoute:
       return MaterialPageRoute(builder: (context) {
@@ -101,6 +99,5 @@ class NoAnimRouteBuilder extends PageRouteBuilder {
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) => page,
             transitionDuration: Duration(milliseconds: 0),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) => child);
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => child);
 }
