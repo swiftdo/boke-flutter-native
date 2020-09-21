@@ -10,85 +10,137 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case SplashRoute:
       return NoAnimRouteBuilder(SplashPage());
     case MainRoute:
-      return MaterialPageRoute(builder: (context) {
-        return MainPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return MainPage();
+        },
+        settings: settings,
+      );
     case LoginRoute:
-      return CupertinoPageRoute(fullscreenDialog: true, builder: (context) => LoginPage());
+      return CupertinoPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => LoginPage(),
+        settings: settings,
+      );
     case RegisterRoute:
-      return MaterialPageRoute(builder: (context) {
-        return RegisterPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return RegisterPage();
+        },
+        settings: settings,
+      );
     case ForgetPwdRoute:
-      return MaterialPageRoute(builder: (context) {
-        return ForgetPwdPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return ForgetPwdPage();
+        },
+        settings: settings,
+      );
     case ProtocolRoute:
-      return MaterialPageRoute(builder: (context) {
-        return ProtocolPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return ProtocolPage();
+        },
+        settings: settings,
+      );
     case ProfileRoute:
-      return MaterialPageRoute(builder: (context) {
-        return ProfilePage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return ProfilePage();
+        },
+        settings: settings,
+      );
     case SettingRoute:
-      return MaterialPageRoute(builder: (context) {
-        return SettingPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return SettingPage();
+        },
+        settings: settings,
+      );
     case TopicDetailRoute:
-      return MaterialPageRoute(builder: (context) {
-        Map args = ValueUtil.toMap(settings.arguments);
-        return TopicDetailPage(
-          topicId: ValueUtil.toStr(args['topicId']),
-        );
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          Map args = ValueUtil.toMap(settings.arguments);
+          return TopicDetailPage(
+            topicId: ValueUtil.toStr(args['topicId']),
+          );
+        },
+        settings: settings,
+      );
     case BookletsRoute:
-      return MaterialPageRoute(builder: (context) {
-        return BookletsPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return BookletsPage();
+        },
+        settings: settings,
+      );
 
     case BookletRoute:
-      return MaterialPageRoute(builder: (context) {
-        Map args = ValueUtil.toMap(settings.arguments);
-        return BookletPage(bookletId: ValueUtil.toStr(args['bookletId']));
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          Map args = ValueUtil.toMap(settings.arguments);
+          return BookletPage(bookletId: ValueUtil.toStr(args['bookletId']));
+        },
+        settings: settings,
+      );
     case BookletReadRoute:
-      return MaterialPageRoute(builder: (context) {
-        Map args = ValueUtil.toMap(settings.arguments);
-        return BookletReadPage(catalog: args['catalog'], catalogs: args['catalogs']);
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          Map args = ValueUtil.toMap(settings.arguments);
+          return BookletReadPage(catalog: args['catalog'], catalogs: args['catalogs']);
+        },
+        settings: settings,
+      );
     case ThemeRoute:
-      return MaterialPageRoute(builder: (context) {
-        return ThemePage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return ThemePage();
+        },
+        settings: settings,
+      );
     case AboutMeRoute:
-      return MaterialPageRoute(builder: (context) {
-        return AboutMePage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return AboutMePage();
+        },
+        settings: settings,
+      );
     case GamesRoute:
-      return MaterialPageRoute(builder: (context) {
-        return GamePage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return GamePage();
+        },
+        settings: settings,
+      );
     case AnswerRoute:
-      return MaterialPageRoute(builder: (context) {
-        return AnswerPage();
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return AnswerPage();
+        },
+        settings: settings,
+      );
     case WebViewRoute:
       Map args = ValueUtil.toMap(settings.arguments);
-      return MaterialPageRoute(builder: (context) {
-        return WebViewPage(
-          title: args['title'],
-          url: args['url'],
-        );
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return WebViewPage(
+            title: args['title'],
+            url: args['url'],
+          );
+        },
+        settings: settings,
+      );
     default:
-      return MaterialPageRoute(builder: (context) {
-        return Scaffold(
-          body: Center(
-            child: Text('不支持 $routeName 路由'),
-          ),
-        );
-      });
+      return MaterialPageRoute(
+        builder: (context) {
+          return Scaffold(
+            body: Center(
+              child: Text('不支持 $routeName 路由'),
+            ),
+          );
+        },
+        settings: settings,
+      );
   }
 }
 

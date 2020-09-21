@@ -1,8 +1,9 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:intro_views_flutter/Models/page_view_model.dart';
+import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/routing/route_names.dart';
-import 'package:fancy_on_boarding/fancy_on_boarding.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 enum SplashPageType {
   guide, // 引导
@@ -20,11 +21,14 @@ class _SplashPageState extends State<SplashPage> {
   SplashPageType _type = SplashPageType.none;
 
   final pageList = [
-    PageModel(
-        color: const Color(0xFF678FB4),
-        heroAssetPath: 'assets/images/home.png',
+    PageViewModel(
+        pageColor: Color(0xFFEF5138),
+        mainImage: Container(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: Image.asset('assets/images/home.png'),
+        ),
         title: Text(
-          '首页',
+          'OldBirds',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -33,23 +37,31 @@ class _SplashPageState extends State<SplashPage> {
         ),
         body: Container(
           padding: EdgeInsets.all(16),
-          child: Text('为程序员每日发现优质内容，每个频道内都有一到多个为你精心准备的优质内容源。',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              )),
-        ),
-        iconAssetPath: 'assets/images/news.png'),
-    PageModel(
-        color: const Color(0xFF65B0B4),
-        heroAssetPath: 'assets/images/learn.png',
-        title: Text('学习',
+          child: Text(
+            '为程序员每日发现优质内容，每个频道内都有一到多个为你精心准备的优质内容源。',
+            textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
               color: Colors.white,
-              fontSize: 34.0,
-            )),
+              fontSize: 18.0,
+            ),
+          ),
+        ),
+        iconColor: Colors.white,
+        iconImageAssetPath: 'assets/images/hi.png'),
+    PageViewModel(
+        pageColor: Color(0xFFEF5138),
+        mainImage: Container(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: Image.asset('assets/images/learn.png'),
+        ),
+        title: Text(
+          '学习',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+            fontSize: 34.0,
+          ),
+        ),
         body: Container(
           padding: EdgeInsets.all(16),
           child: Text('学习不但意味着接受新知识，同时还要修正错误乃至对错误的认识',
@@ -59,16 +71,22 @@ class _SplashPageState extends State<SplashPage> {
                 fontSize: 18.0,
               )),
         ),
-        iconAssetPath: 'assets/images/knowledge.png'),
-    PageModel(
-      color: const Color(0xFF9B90BC),
-      heroAssetPath: 'assets/images/like.png',
-      title: Text('兴趣',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-            fontSize: 34.0,
-          )),
+        iconColor: Colors.white,
+        iconImageAssetPath: 'assets/images/knowledge.png'),
+    PageViewModel(
+      pageColor: Color(0xFFEF5138),
+      mainImage: Container(
+        padding: EdgeInsets.symmetric(horizontal: 30),
+        child: Image.asset('assets/images/like.png'),
+      ),
+      title: Text(
+        '兴趣',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+          fontSize: 34.0,
+        ),
+      ),
       body: Container(
         padding: EdgeInsets.all(16),
         child: Text('任何一种兴趣都包含着天性中有倾向性的呼声，也许还包含着一种处在原始状态中的天才的闪光',
@@ -78,7 +96,8 @@ class _SplashPageState extends State<SplashPage> {
               fontSize: 18.0,
             )),
       ),
-      iconAssetPath: 'assets/images/love.png',
+      iconImageAssetPath: 'assets/images/love.png',
+      iconColor: Colors.white,
     )
   ];
 
@@ -126,16 +145,20 @@ class _SplashPageState extends State<SplashPage> {
 
   Widget _buildBody() {
     if (_type == SplashPageType.guide) {
-      return FancyOnBoarding(
-        doneButtonText: "完成",
-        doneButtonTextStyle: TextStyle(fontSize: 16, color: Colors.white),
-        skipButtonText: "跳过",
-        skipButtonTextStyle: TextStyle(fontSize: 16, color: Colors.white),
-        pageList: pageList,
-        onDoneButtonPressed: () =>
-            Navigator.of(context).pushReplacementNamed(MainRoute),
-        onSkipButtonPressed: () =>
-            Navigator.of(context).pushReplacementNamed(MainRoute),
+      return IntroViewsFlutter(
+        pageList,
+        doneText: Text('完成', style: TextStyle(fontSize: 16, color: Colors.white)),
+        onTapDoneButton: () {
+          Navigator.of(context).pushReplacementNamed(MainRoute);
+        },
+        onTapSkipButton: () {
+          Navigator.of(context).pushReplacementNamed(MainRoute);
+        },
+        showSkipButton: true,
+        skipText: Text(
+          '跳过',
+          style: TextStyle(fontSize: 16, color: Colors.white),
+        ),
       );
     } else if (_type == SplashPageType.animate) {
       return Center(

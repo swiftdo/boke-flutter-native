@@ -5,17 +5,18 @@ author: loveli
 homepage: loveli.site
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  dio: ^3.0.9
-  provider: ^4.2.0
+  dio: ^3.0.10
+  provider: ^4.3.2+1
   oktoast: ^2.3.2
-  pull_to_refresh: ^1.6.0
-  shared_preferences: ^0.5.7+3
-  synchronized: ^2.2.0
+  pull_to_refresh: ^1.6.1
+  shared_preferences: ^0.5.10
+  synchronized: ^2.2.0+2
+  crypto: ^2.1.5
 
 dev_dependencies:
   flutter_test:
