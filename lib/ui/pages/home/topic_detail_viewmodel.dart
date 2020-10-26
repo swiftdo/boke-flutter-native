@@ -1,12 +1,12 @@
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/services/services.dart';
-import '../model/model.dart';
+import '../../../model/model.dart';
 import 'package:loveli_core/loveli_core.dart';
 
-class TopicDetailState extends ViewStateModel {
+class TopicDetailViewModel extends ViewStateModel {
   final String topicId;
 
-  TopicDetailState({this.topicId});
+  TopicDetailViewModel({this.topicId});
 
   Topic _topic;
   Topic get topic => _topic;

@@ -3,8 +3,8 @@ import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/model/model.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:provider/provider.dart';
-import '../../../states/states.dart';
 import '../../widgets/widgets.dart';
+import 'home_news_viewmodel.dart';
 
 class HomeNewsPage extends StatefulWidget {
   final String subjectId;
@@ -14,8 +14,7 @@ class HomeNewsPage extends StatefulWidget {
   _HomeNewsPageState createState() => _HomeNewsPageState();
 }
 
-class _HomeNewsPageState extends State<HomeNewsPage>
-    with AutomaticKeepAliveClientMixin {
+class _HomeNewsPageState extends State<HomeNewsPage> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -23,9 +22,9 @@ class _HomeNewsPageState extends State<HomeNewsPage>
   Widget build(BuildContext context) {
     super.build(context);
     return ProviderWidget(
-      model: HomeNewsState(widget.subjectId),
-      onModelReady: (HomeNewsState model) => model.initData(),
-      builder: (context, HomeNewsState newsState, child) {
+      model: HomeNewsViewModel(widget.subjectId),
+      onModelReady: (HomeNewsViewModel model) => model.initData(),
+      builder: (context, HomeNewsViewModel newsState, child) {
         return SmartRefresher(
           controller: newsState.refreshController,
           header: WaterDropMaterialHeader(),
@@ -54,7 +53,7 @@ class _HomeNewsPageState extends State<HomeNewsPage>
 class HomeTopicList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    HomeNewsState state = Provider.of(context);
+    HomeNewsViewModel state = Provider.of(context);
     if (state.viewState == ViewState.busy) {
       return SliverToBoxAdapter(
         child: SkeletonList(

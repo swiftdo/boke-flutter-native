@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'home_news_page.dart';
-import 'package:oldbirds/states/states.dart';
+import 'home_viewmodel.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,11 +21,11 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     super.build(context);
     return ProviderWidget(
-      model: HomeState(),
+      model: HomeViewModel(),
       onModelReady: (homeState) {
         homeState.loadSubjects();
       },
-      builder: (context, HomeState state, child) {
+      builder: (context, HomeViewModel state, child) {
         if (state.viewState == ViewState.error || state.viewState == ViewState.busy || state.subjects.length == 0) {
           return ViewStateBusyWidget();
         }

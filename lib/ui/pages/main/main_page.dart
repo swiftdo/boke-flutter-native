@@ -1,18 +1,19 @@
+import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:oldbirds/states/states.dart';
 import 'package:loveli_core/loveli_core.dart';
+
 import 'package:oldbirds/ui/ui.dart';
+
 import '../home/home_page.dart';
 import '../learn/learn_page.dart';
 import '../mine/mine_page.dart';
-import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
+import 'main_viewmodel.dart';
 
 class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ProviderWidget<MainBottomBarState>(
-      model: MainBottomBarState(),
+    return ProviderWidget<MainViewModel>(
+      model: MainViewModel(),
       builder: (ctx, state, child) {
         return Scaffold(
           body: IndexedStack(
@@ -25,35 +26,7 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Widget _navBarIcon(String image) {
-    return SvgPicture.asset(
-      image,
-      width: 24,
-      color: Colors.grey,
-    );
-  }
-
-  Widget _navBarActiveIcon(String image) {
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: SvgPicture.asset(
-        image,
-        color: Color(0xffEF543C),
-      ),
-    );
-  }
-
-  Widget _navBarTitle(String title) {
-    return Container(
-      padding: EdgeInsets.only(top: 3),
-      child: Text(
-        title,
-        style: TextStyle(fontSize: 12, color: Colors.grey),
-      ),
-    );
-  }
-
-  Widget _buildBottomNavigationBar(BuildContext context, MainBottomBarState state) {
+  Widget _buildBottomNavigationBar(BuildContext context, MainViewModel state) {
     return FluidNavBar(
       icons: [
         FluidNavBarIcon(
@@ -66,7 +39,11 @@ class MainPage extends StatelessWidget {
           iconPath: "assets/images/tab_mine.svg",
         ),
       ],
-      style: FluidNavBarStyle(iconSelectedForegroundColor: Color(0xffEF5138)),
+      style: FluidNavBarStyle(
+        barBackgroundColor: Theme.of(context).primaryColor,
+        iconSelectedForegroundColor: Colors.white,
+        iconUnselectedForegroundColor: Theme.of(context).backgroundColor,
+      ),
       onChange: (index) {
         state.setCurrentIndex(index);
       },

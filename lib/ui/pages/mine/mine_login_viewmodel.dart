@@ -4,14 +4,13 @@ import 'package:oktoast/oktoast.dart';
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/macro.dart';
 import 'package:oldbirds/services/services.dart';
-import 'global_user_state.dart';
+import '../../../states/global_user_state.dart';
 
-class MineLoginState extends ViewStateModel {
+class MineLoginViewModel extends ViewStateModel {
   final GlobalUserState globalUserState;
 
-  MineLoginState({@required this.globalUserState}) {
-    _agreeProtocol =
-        SpUtil.getBool(Macro.saveKeyRemindAgreeProtocol, defValue: false);
+  MineLoginViewModel({@required this.globalUserState}) {
+    _agreeProtocol = SpUtil.getBool(Macro.saveKeyRemindAgreeProtocol, defValue: false);
   }
 
   final repository = locator<NativeRepository>();
@@ -46,11 +45,7 @@ class MineLoginState extends ViewStateModel {
   }
 
   void changeEnableLogin() {
-    if (_email != null &&
-        _email.isNotEmpty &&
-        _password != null &&
-        _password.isNotEmpty &&
-        _agreeProtocol) {
+    if (_email != null && _email.isNotEmpty && _password != null && _password.isNotEmpty && _agreeProtocol) {
       _enableLogin = true;
     } else {
       _enableLogin = false;

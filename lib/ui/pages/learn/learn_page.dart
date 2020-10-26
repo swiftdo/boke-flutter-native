@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/routing/routing.dart';
-import 'package:oldbirds/states/learn_state.dart';
+import 'learn_viewmodel.dart';
 import 'package:oldbirds/ui/ui.dart';
 
 import '../../../model/model.dart';
@@ -18,8 +18,8 @@ class _LearnPageState extends State<LearnPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('学习'), centerTitle: false, elevation: 0),
-      body: ProviderWidget<LearnState>(
-        model: LearnState(),
+      body: ProviderWidget<LearnViewModel>(
+        model: LearnViewModel(),
         onModelReady: (model) => model.getLearn(),
         builder: (context, model, child) {
           if (model.viewState == ViewState.busy || model.data == null) {
@@ -38,7 +38,7 @@ class _LearnPageState extends State<LearnPage> {
     );
   }
 
-  LearnSectionView _buildBooklets(LearnState model) {
+  LearnSectionView _buildBooklets(LearnViewModel model) {
     return LearnSectionView(
       padding: EdgeInsets.only(top: 20),
       title: '最新手册',
@@ -52,7 +52,7 @@ class _LearnPageState extends State<LearnPage> {
     );
   }
 
-  SliverToBoxAdapter _buildTool(LearnState model) {
+  SliverToBoxAdapter _buildTool(LearnViewModel model) {
     return SliverToBoxAdapter(
       child: Container(
         margin: EdgeInsets.only(top: 16),
@@ -96,7 +96,7 @@ class _LearnPageState extends State<LearnPage> {
     );
   }
 
-  SliverToBoxAdapter _buildTop(LearnState model) {
+  SliverToBoxAdapter _buildTop(LearnViewModel model) {
     return SliverToBoxAdapter(
       child: Container(
         margin: EdgeInsets.only(top: 16),
@@ -122,40 +122,41 @@ class _LearnPageState extends State<LearnPage> {
               child: Container(
                 child: Container(
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(5),
-                      child: Stack(
-                        children: <Widget>[
-                          CachedNetworkImage(
-                            imageUrl: item.cover,
-                            fit: BoxFit.cover,
-                            height: 160,
-                            placeholder: (context, url) => CircularProgressIndicator(),
-                          ),
-                          Positioned(
-                            bottom: 0.0,
-                            left: 0.0,
-                            right: 0.0,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.bottomCenter,
-                                  end: Alignment.topCenter,
-                                  colors: [Colors.black38, Colors.black.withAlpha(0)],
-                                ),
+                    borderRadius: BorderRadius.circular(5),
+                    child: Stack(
+                      children: <Widget>[
+                        CachedNetworkImage(
+                          imageUrl: item.cover,
+                          fit: BoxFit.cover,
+                          height: 160,
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                        ),
+                        Positioned(
+                          bottom: 0.0,
+                          left: 0.0,
+                          right: 0.0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                                colors: [Colors.black38, Colors.black.withAlpha(0)],
                               ),
-                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-                              child: Text(
-                                item.title,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            ),
+                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                            child: Text(
+                              item.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                        ],
-                      ),),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             );

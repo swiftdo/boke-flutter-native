@@ -2,20 +2,20 @@ import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/services/services.dart';
 
-import '../model/model.dart';
+import '../../../model/model.dart';
 
-class HomeState extends ViewStateModel {
-  List<Subject> _subjects = [];
-  List<Subject> get subjects => _subjects;
-
+class LearnViewModel extends ViewStateModel {
   final repository = locator<NativeRepository>();
 
-  Future<List> loadSubjects() async {
+  Learn _data;
+  Learn get data => _data;
+
+  getLearn() async {
     setBusy();
     try {
-      _subjects = await repository.subjectAll();
+      _data = await repository.getLearn();
       setIdle();
-      return _subjects;
+      return _data;
     } catch (e, s) {
       setError(e, s);
       return null;

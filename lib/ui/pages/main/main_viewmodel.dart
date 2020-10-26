@@ -1,6 +1,6 @@
 import 'package:loveli_core/loveli_core.dart';
 
-class MainBottomBarState extends ViewStateModel {
+class MainViewModel extends ViewStateModel {
   int _currentIndex = 0;
 
   int get currentIndex => _currentIndex;

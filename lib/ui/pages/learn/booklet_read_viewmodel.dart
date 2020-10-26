@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:loveli_core/loveli_core.dart';
-import '../model/model.dart';
+import '../../../model/model.dart';
 
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/services/services.dart';
 
-class BookletReadState extends ViewStateModel {
+class BookletReadViewModel extends ViewStateModel {
   Catalog currentCatalog;
   final BookletReadTitleState titleState;
   final List<Catalog> catalogs;
@@ -15,7 +15,7 @@ class BookletReadState extends ViewStateModel {
 
   List<Catalog> _flatCatalogs;
 
-  BookletReadState({
+  BookletReadViewModel({
     @required this.currentCatalog,
     @required this.catalogs,
     @required this.titleState,
@@ -44,8 +44,7 @@ class BookletReadState extends ViewStateModel {
     }
   }
 
-  int get _indexOfCurrent =>
-      _flatCatalogs.indexWhere((element) => element.id == currentCatalog.id);
+  int get _indexOfCurrent => _flatCatalogs.indexWhere((element) => element.id == currentCatalog.id);
   bool get canNext => _indexOfCurrent < _flatCatalogs.length - 1;
   bool get canPreview => _indexOfCurrent > 0;
 

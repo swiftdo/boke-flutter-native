@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/model/model.dart';
 import 'package:oldbirds/routing/route_names.dart';
-import 'package:oldbirds/states/states.dart';
+
+import 'booklet_viewmodel.dart';
 
 class BookletPage extends StatelessWidget {
   final String bookletId; // root catalogId
@@ -24,15 +25,14 @@ class BookletPage extends StatelessWidget {
         ),
       ),
       body: ProviderWidget(
-        model: BookletState(bookletId: bookletId),
-        onModelReady: (BookletState state) {
+        model: BookletViewModel(bookletId: bookletId),
+        onModelReady: (BookletViewModel state) {
           state.loadData();
         },
-        builder: (context, BookletState state, child) {
+        builder: (context, BookletViewModel state, child) {
           if (state.viewState == ViewState.busy) {
             return ViewStateBusyWidget();
-          } else if (state.viewState == ViewState.error ||
-              state.booklet == null) {
+          } else if (state.viewState == ViewState.error || state.booklet == null) {
             return Container();
           }
           return CustomScrollView(
@@ -46,15 +46,15 @@ class BookletPage extends StatelessWidget {
     );
   }
 
-  SliverList _buildCatalogs(BookletState state) {
+  SliverList _buildCatalogs(BookletViewModel state) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           return CatalogTree(
             item: state.catalogs[index],
             onTap: (item) {
-              Navigator.of(context).pushNamed(BookletReadRoute,
-                  arguments: {"catalogs": state.catalogs, "catalog": item});
+              Navigator.of(context)
+                  .pushNamed(BookletReadRoute, arguments: {"catalogs": state.catalogs, "catalog": item});
             },
           );
         },
@@ -63,7 +63,7 @@ class BookletPage extends StatelessWidget {
     );
   }
 
-  SliverToBoxAdapter _buildHeader(BookletState state) {
+  SliverToBoxAdapter _buildHeader(BookletViewModel state) {
     return SliverToBoxAdapter(
       child: Container(
         padding: EdgeInsets.all(16),
@@ -84,8 +84,7 @@ class BookletPage extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       state.booklet.name,
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 10),
@@ -110,9 +109,7 @@ class CatalogTree extends StatelessWidget {
   final Catalog item;
   final void Function(Catalog item) onTap;
   final String selectCatalogId;
-  const CatalogTree(
-      {Key key, this.item, @required this.onTap, this.selectCatalogId})
-      : super(key: key);
+  const CatalogTree({Key key, this.item, @required this.onTap, this.selectCatalogId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,8 +126,7 @@ class CatalogTree extends StatelessWidget {
               child: Text(
                 item.title,
                 style: TextStyle(
-                    fontSize: 18.0 * (18 - item.level) / 18,
-                    color: selectCatalogId == item.id ? Colors.red : null),
+                    fontSize: 18.0 * (18 - item.level) / 18, color: selectCatalogId == item.id ? Colors.red : null),
               ),
             ),
           ),

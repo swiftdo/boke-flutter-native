@@ -4,14 +4,13 @@ import 'package:oktoast/oktoast.dart';
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/macro.dart';
 import 'package:oldbirds/services/services.dart';
-import 'global_user_state.dart';
+import '../../../states/global_user_state.dart';
 
-class MineRegisterState extends ViewStateModel {
+class MineRegisterViewModel extends ViewStateModel {
   final GlobalUserState globalUserState;
 
-  MineRegisterState({@required this.globalUserState}) {
-    _agreeProtocol =
-        SpUtil.getBool(Macro.saveKeyRemindAgreeProtocol, defValue: false);
+  MineRegisterViewModel({@required this.globalUserState}) {
+    _agreeProtocol = SpUtil.getBool(Macro.saveKeyRemindAgreeProtocol, defValue: false);
   }
 
   final repository = locator<NativeRepository>();
@@ -98,8 +97,7 @@ class MineRegisterState extends ViewStateModel {
     SpUtil.putBool(Macro.saveKeyRemindAgreeProtocol, true);
     setBusy();
     try {
-      final _ =
-          await repository.register(name: name, email: email, pwd: password);
+      final _ = await repository.register(name: name, email: email, pwd: password);
       final result = await repository.login(pwd: password, email: email);
       globalUserState.login(user: result.user, token: result.token);
       setIdle();

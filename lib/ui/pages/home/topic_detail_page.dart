@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
-import 'package:oldbirds/states/states.dart';
+
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:oldbirds/themes/markdown_style.dart';
+import 'topic_detail_viewmodel.dart';
 
 class TopicDetailPage extends StatelessWidget {
   final String topicId;
@@ -22,11 +23,11 @@ class TopicDetailPage extends StatelessWidget {
         ),
       ),
       body: ProviderWidget(
-        model: TopicDetailState(topicId: topicId),
-        onModelReady: (TopicDetailState state) {
+        model: TopicDetailViewModel(topicId: topicId),
+        onModelReady: (TopicDetailViewModel state) {
           state.loadTopic();
         },
-        builder: (context, TopicDetailState state, child) {
+        builder: (context, TopicDetailViewModel state, child) {
           if (state.viewState == ViewState.error) {
             return Center(
               child: Text('加载错误'),

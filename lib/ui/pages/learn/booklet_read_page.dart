@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:oldbirds/model/model.dart';
-import 'package:oldbirds/states/booklet_read_state.dart';
-import 'package:oldbirds/states/states.dart';
 import 'package:oldbirds/themes/markdown_style.dart';
+import 'booklet_read_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import 'booklet_page.dart';
@@ -40,16 +39,12 @@ class BookletReadPage extends StatelessWidget {
         ),
       ),
       body: ProviderWidget(
-        model: BookletReadState(
-            currentCatalog: catalog,
-            catalogs: catalogs,
-            titleState: titleState),
-        onModelReady: (BookletReadState state) => state.loadTopic(),
-        builder: (context, BookletReadState state, child) {
+        model: BookletReadViewModel(currentCatalog: catalog, catalogs: catalogs, titleState: titleState),
+        onModelReady: (BookletReadViewModel state) => state.loadTopic(),
+        builder: (context, BookletReadViewModel state, child) {
           if (state.viewState == ViewState.busy) {
             return ViewStateBusyWidget();
-          } else if (state.viewState == ViewState.error ||
-              state.topic == null) {
+          } else if (state.viewState == ViewState.error || state.topic == null) {
             return Container();
           }
           return _buildTopic(state, context);
@@ -58,7 +53,7 @@ class BookletReadPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTopic(BookletReadState state, BuildContext context) {
+  Widget _buildTopic(BookletReadViewModel state, BuildContext context) {
     return Column(
       children: <Widget>[
         Expanded(
@@ -83,20 +78,17 @@ class BookletReadPage extends StatelessWidget {
     );
   }
 
-  Container _buildBottomBar(BuildContext context, BookletReadState state) {
+  Container _buildBottomBar(BuildContext context, BookletReadViewModel state) {
     return Container(
       height: MediaQuery.of(context).padding.bottom + 60,
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
-          left: 16, right: 16, bottom: MediaQuery.of(context).padding.bottom),
+      padding: EdgeInsets.only(left: 16, right: 16, bottom: MediaQuery.of(context).padding.bottom),
       decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 0), color: Colors.black54, blurRadius: 4),
+            BoxShadow(offset: Offset(0, 0), color: Colors.black54, blurRadius: 4),
           ],
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+          borderRadius: BorderRadius.only(topRight: Radius.circular(20), topLeft: Radius.circular(20))),
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,9 +112,7 @@ class BookletReadPage extends StatelessWidget {
                       return FractionallySizedBox(
                         heightFactor: 0.6,
                         child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10)),
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                           clipBehavior: Clip.hardEdge,
                           child: Container(
                             decoration: BoxDecoration(
@@ -135,14 +125,12 @@ class BookletReadPage extends StatelessWidget {
                             child: DraggableScrollableSheet(
                               initialChildSize: 1,
                               minChildSize: 0.95,
-                              builder: (BuildContext context,
-                                  ScrollController scrollController) {
+                              builder: (BuildContext context, ScrollController scrollController) {
                                 return ListView.builder(
                                   controller: scrollController,
                                   itemBuilder: (context, index) {
                                     return CatalogTree(
-                                        selectCatalogId:
-                                            state.currentCatalog.id,
+                                        selectCatalogId: state.currentCatalog.id,
                                         item: state.catalogs[index],
                                         onTap: (item) {
                                           state.select(item);

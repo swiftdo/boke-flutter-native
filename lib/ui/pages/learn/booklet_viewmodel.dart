@@ -3,12 +3,11 @@ import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/model/booklet.dart';
 import 'package:oldbirds/services/services.dart';
+import 'package:oldbirds/model/model.dart';
 
-import '../model/model.dart';
-
-class BookletState extends ViewStateModel {
+class BookletViewModel extends ViewStateModel {
   final String bookletId;
-  BookletState({@required this.bookletId});
+  BookletViewModel({@required this.bookletId});
 
   Booklet _booklet;
   Booklet get booklet => _booklet;

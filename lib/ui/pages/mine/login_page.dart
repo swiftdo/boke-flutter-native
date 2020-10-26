@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
 import 'package:oldbirds/routing/routing.dart';
-import 'package:oldbirds/states/states.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/widgets.dart';
+import 'mine_login_viewmodel.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,8 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return ProviderWidget(
-      model: MineLoginState(globalUserState: Provider.of(context)),
-      builder: (context, MineLoginState state, child) {
+      model: MineLoginViewModel(globalUserState: Provider.of(context)),
+      builder: (context, MineLoginViewModel state, child) {
         return Scaffold(
           body: SingleChildScrollView(
             child: Column(
@@ -36,19 +36,12 @@ class _LoginPageState extends State<LoginPage> {
                         });
                       }
                     },
-                    buttonState: state.sending
-                        ? ButtonState.inProgress
-                        : ButtonState.normal,
-                    backgroundColor: state.enableLogin
-                        ? Color(0xFFEF5138)
-                        : Theme.of(context).disabledColor,
+                    buttonState: state.sending ? ButtonState.inProgress : ButtonState.normal,
+                    backgroundColor: state.enableLogin ? Color(0xFFEF5138) : Theme.of(context).disabledColor,
                     progressColor: Colors.white,
                     child: Text(
                       '登录',
-                      style: TextStyle(
-                          color:
-                              state.enableLogin ? Colors.white : Colors.white70,
-                          fontSize: 16),
+                      style: TextStyle(color: state.enableLogin ? Colors.white : Colors.white70, fontSize: 16),
                     ),
                   ),
                 ),
@@ -68,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildForm(BuildContext context) {
-    MineLoginState state = Provider.of<MineLoginState>(context, listen: false);
+    MineLoginViewModel state = Provider.of<MineLoginViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -79,8 +72,7 @@ class _LoginPageState extends State<LoginPage> {
           child: TextField(
             onChanged: (text) => state.setEmail(text),
             decoration: InputDecoration(
-              focusedBorder:
-                  UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 1)),
               labelText: '邮箱',
               hintText: '请输入邮箱',
             ),
@@ -93,8 +85,7 @@ class _LoginPageState extends State<LoginPage> {
             obscureText: true,
             onChanged: (text) => state.setPassword(text),
             decoration: InputDecoration(
-                focusedBorder:
-                    UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+                focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 1)),
                 labelText: '密码',
                 hintText: '请输入密码'),
           ),
@@ -125,8 +116,7 @@ class LoginWelcomeTitle extends StatelessWidget {
       padding: EdgeInsets.only(left: 16, right: 16, top: 30),
       child: Text(
         '你好\n欢迎来到 OldBirds',
-        style:
-            TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 1.4),
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, height: 1.4),
       ),
     );
   }
@@ -136,8 +126,7 @@ class LoginHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-          left: 16, right: 16, top: MediaQuery.of(context).padding.top),
+      padding: EdgeInsets.only(left: 16, right: 16, top: MediaQuery.of(context).padding.top),
       child: Container(
         height: 50,
         child: Row(

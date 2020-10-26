@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/provider/provider_widget.dart';
-import 'package:oldbirds/states/mine_register_state.dart';
+import 'mine_register_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import '../../widgets/widgets.dart';
@@ -23,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Icon(Icons.arrow_back_ios),
         ),
       ),
-      body: ProviderWidget<MineRegisterState>(
+      body: ProviderWidget<MineRegisterViewModel>(
         builder: (context, state, child) {
           return SingleChildScrollView(
             child: Column(
@@ -42,20 +42,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         });
                       }
                     },
-                    buttonState: state.sending
-                        ? ButtonState.inProgress
-                        : ButtonState.normal,
-                    backgroundColor: state.enableRegister
-                        ? Color(0xFFEF5138)
-                        : Theme.of(context).disabledColor,
+                    buttonState: state.sending ? ButtonState.inProgress : ButtonState.normal,
+                    backgroundColor: state.enableRegister ? Color(0xFFEF5138) : Theme.of(context).disabledColor,
                     progressColor: Colors.white,
                     child: Text(
                       '注册',
-                      style: TextStyle(
-                          color: state.enableRegister
-                              ? Colors.white
-                              : Colors.white70,
-                          fontSize: 16),
+                      style: TextStyle(color: state.enableRegister ? Colors.white : Colors.white70, fontSize: 16),
                     ),
                   ),
                 ),
@@ -69,15 +61,14 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           );
         },
-        model: MineRegisterState(globalUserState: Provider.of(context)),
+        model: MineRegisterViewModel(globalUserState: Provider.of(context)),
         child: Builder(builder: (context) => _buildForm(context)),
       ),
     );
   }
 
   Widget _buildForm(BuildContext context) {
-    MineRegisterState state =
-        Provider.of<MineRegisterState>(context, listen: false);
+    MineRegisterViewModel state = Provider.of<MineRegisterViewModel>(context, listen: false);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -93,8 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: TextField(
             onChanged: (text) => state.setName(text),
             decoration: InputDecoration(
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff333333), width: 1)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xff333333), width: 1)),
               labelText: '昵称',
               hintText: '请输入你的昵称',
             ),
@@ -105,8 +95,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: TextField(
             onChanged: (text) => state.setEmail(text),
             decoration: InputDecoration(
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff333333), width: 1)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Color(0xff333333), width: 1)),
               labelText: '邮箱',
               hintText: '请输入邮箱',
             ),
@@ -119,8 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
             onChanged: (text) => state.setPassword(text),
             obscureText: true,
             decoration: InputDecoration(
-              focusedBorder:
-                  UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 1)),
               labelText: '密码',
               hintText: '请输入密码',
             ),
@@ -132,8 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
             onChanged: (text) => state.setAgainPassword(text),
             obscureText: true,
             decoration: InputDecoration(
-              focusedBorder:
-                  UnderlineInputBorder(borderSide: BorderSide(width: 1)),
+              focusedBorder: UnderlineInputBorder(borderSide: BorderSide(width: 1)),
               labelText: '确认密码',
               hintText: '请再次输入密码',
             ),

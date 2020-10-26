@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:loveli_core/loveli_core.dart';
-import 'package:oldbirds/states/states.dart';
+
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:provider/provider.dart';
 import 'package:oldbirds/ui/widgets/widgets.dart';
 import 'package:oldbirds/model/model.dart';
+import 'booklets_viewmodel.dart';
 
 class BookletsPage extends StatelessWidget {
   @override
@@ -26,11 +27,11 @@ class BookletsPage extends StatelessWidget {
 
   Widget _buildBody() {
     return ProviderWidget(
-      model: BookletsState(),
+      model: BookletsViewModel(),
       onModelReady: (model) {
         model.initData();
       },
-      builder: (context, BookletsState newsState, child) {
+      builder: (context, BookletsViewModel newsState, child) {
         return SmartRefresher(
           controller: newsState.refreshController,
           header: WaterDropMaterialHeader(
@@ -61,7 +62,7 @@ class BookletsPage extends StatelessWidget {
 class BookletList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    BookletsState state = Provider.of(context);
+    BookletsViewModel state = Provider.of(context);
     if (state.viewState == ViewState.busy) {
       return SliverToBoxAdapter(
         child: SkeletonList(

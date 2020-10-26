@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oldbirds/states/answer_page_state.dart';
+import 'package:oldbirds/ui/pages/answer/answer_page_state.dart';
 import 'package:provider/provider.dart';
 import 'package:progress_state_button/progress_button.dart';
 
@@ -87,18 +87,15 @@ class AnswerPage extends StatelessWidget {
               stateWidgets: {
                 ButtonState.idle: Text(
                   "继续提问",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
                 ButtonState.loading: Text(
                   "  继续提问",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
                 ButtonState.fail: Text(
                   "失败",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
                 ButtonState.success: Text(
                   "成功",
@@ -151,18 +148,15 @@ class AnswerPage extends StatelessWidget {
               stateWidgets: {
                 ButtonState.idle: Text(
                   "答案",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
                 ButtonState.loading: Text(
                   "  答案",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
                 ButtonState.fail: Text(
                   "失败",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w500),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                 ),
                 ButtonState.success: Text(
                   "成功",

@@ -1,12 +1,12 @@
 import 'package:loveli_core/loveli_core.dart';
-import '../model/model.dart';
+import '../../../model/model.dart';
 
 import 'package:oldbirds/locator.dart';
 import 'package:oldbirds/services/services.dart';
 
-class HomeNewsState extends ViewStateRefreshListModel {
+class HomeNewsViewModel extends ViewStateRefreshListModel {
   final String subjectId;
-  HomeNewsState(this.subjectId);
+  HomeNewsViewModel(this.subjectId);
 
   List<Topic> _news;
   List<Topic> get news => _news;
@@ -15,8 +15,8 @@ class HomeNewsState extends ViewStateRefreshListModel {
 
   @override
   Future<List> loadData({int pageNum}) async {
-    final ModelPage<Topic> res = await repository.subjectTopics(subjectId,
-        page: pageNum, per: ViewStateRefreshListModel.pageSize);
+    final ModelPage<Topic> res =
+        await repository.subjectTopics(subjectId, page: pageNum, per: ViewStateRefreshListModel.pageSize);
     return res.items;
   }
 
