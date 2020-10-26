@@ -6,6 +6,7 @@ import 'package:oldbirds/ui/ui.dart';
 import '../home/home_page.dart';
 import '../learn/learn_page.dart';
 import '../mine/mine_page.dart';
+import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -52,24 +53,20 @@ class MainPage extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomNavigationBar(
-      BuildContext context, MainBottomBarState state) {
+  Widget _buildBottomNavigationBar(BuildContext context, MainBottomBarState state) {
     return FluidNavBar(
-      icons: <Widget>[
-        _navBarIcon("assets/images/tab_home.svg"),
-        _navBarIcon("assets/images/tab_learn.svg"),
-        _navBarIcon("assets/images/tab_mine.svg"),
+      icons: [
+        FluidNavBarIcon(
+          iconPath: "assets/images/tab_home.svg",
+        ),
+        FluidNavBarIcon(
+          iconPath: "assets/images/tab_learn.svg",
+        ),
+        FluidNavBarIcon(
+          iconPath: "assets/images/tab_mine.svg",
+        ),
       ],
-      activeIcons: <Widget>[
-        _navBarActiveIcon("assets/images/tab_home.svg"),
-        _navBarActiveIcon("assets/images/tab_learn.svg"),
-        _navBarActiveIcon("assets/images/tab_mine.svg"),
-      ],
-      titles: <Widget>[
-        _navBarTitle('首页'),
-        _navBarTitle('学习'),
-        _navBarTitle('我的')
-      ],
+      style: FluidNavBarStyle(iconSelectedForegroundColor: Color(0xffEF5138)),
       onChange: (index) {
         state.setCurrentIndex(index);
       },

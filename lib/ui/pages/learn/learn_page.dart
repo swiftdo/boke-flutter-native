@@ -129,8 +129,7 @@ class _LearnPageState extends State<LearnPage> {
                             imageUrl: item.cover,
                             fit: BoxFit.cover,
                             height: 160,
-                            placeholder: (context, url) =>
-                                CircularProgressIndicator(),
+                            placeholder: (context, url) => CircularProgressIndicator(),
                           ),
                           Positioned(
                             bottom: 0.0,
@@ -139,16 +138,12 @@ class _LearnPageState extends State<LearnPage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
-                                  colors: [
-                                    Colors.black38,
-                                    Colors.black.withAlpha(0)
-                                  ],
                                   begin: Alignment.bottomCenter,
                                   end: Alignment.topCenter,
+                                  colors: [Colors.black38, Colors.black.withAlpha(0)],
                                 ),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
+                              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                               child: Text(
                                 item.title,
                                 style: TextStyle(
@@ -160,7 +155,7 @@ class _LearnPageState extends State<LearnPage> {
                             ),
                           ),
                         ],
-                      )),
+                      ),),
                 ),
               ),
             );
@@ -212,16 +207,13 @@ class LearnSectionView extends StatelessWidget {
                   Container(
                     width: 6,
                     height: 18,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : Color(0xff333333),
+                    color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Color(0xff333333),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 5),
                     child: Text(
                       title,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   )
                 ],
