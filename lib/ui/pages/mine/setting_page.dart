@@ -1,11 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:oldbirds/routing/route_names.dart';
 import 'package:oldbirds/states/states.dart';
 import 'package:provider/provider.dart';
+
 import '../../widgets/widgets.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 class SettingPage extends StatefulWidget {
   @override
@@ -22,12 +23,13 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   void getCacheSize() async {
-    final directory = Directory(await DefaultCacheManager().getFilePath());
-    if (directory.existsSync()) {
-      FileStat fileStat = directory.statSync();
-      cacheSize = '${(fileStat.size / 1024.0).toStringAsFixed(2)} MB';
-      setState(() {});
-    }
+    //TODO: DefaultCacheManager 有问题。
+    // final directory = Directory(await DefaultCacheManager().getFilePath());
+    // if (directory.existsSync()) {
+    //   FileStat fileStat = directory.statSync();
+    //   cacheSize = '${(fileStat.size / 1024.0).toStringAsFixed(2)} MB';
+    //   setState(() {});
+    // }
   }
 
   void clearCacheSize() async {
@@ -78,11 +80,9 @@ class _SettingPageState extends State<SettingPage> {
                             Navigator.of(context).pop();
                           },
                           child: Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xffEF543C),
-                                borderRadius: BorderRadius.circular(30)),
-                            padding: EdgeInsets.symmetric(
-                                vertical: 12, horizontal: 80),
+                            decoration:
+                                BoxDecoration(color: Color(0xffEF543C), borderRadius: BorderRadius.circular(30)),
+                            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 80),
                             child: Text(
                               '退出登录',
                               style: TextStyle(color: Colors.white),
@@ -109,10 +109,7 @@ class _SettingPageState extends State<SettingPage> {
             title: Center(
               child: Text(
                 '提示',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
+                style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
             ),
             actions: <Widget>[
